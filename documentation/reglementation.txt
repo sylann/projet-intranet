@@ -1,0 +1,3 @@
+# Ce fichier contient la reglementation d'utilisation de ce projet.
+
+# Les consignes concernant la création des variables, etc...
