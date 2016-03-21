@@ -2,3 +2,99 @@
 Ce fichier contient un premier jet de css possible.
 Dans un premier temps il faudra répartir les modifications css dans des fichiers différents en fonction de ce qu'ils affectent.
 */
+
+.nav ul{
+	background: #000;
+	height: 100%;
+	margin: 0;
+	overflow: hidden;
+}
+
+.nav li, .nav form, footer li {
+	display: inline;
+}
+
+.nav a {
+	display: inline-block;
+	margin: 1em 1em;
+	color: #eee;
+	text-shadow: 0 0 5px #fff;
+	text-decoration: none;
+	text-transform: uppercase;
+
+	/* effets d'animation progressive du bouton*/
+	-webkit-transition: all 1s;
+	-moz-transition: all 1s;
+	-ms-transition: all 1s;
+	-o-transition: all 1s;
+	transition: all 1s;
+}
+
+.nav a:hover, .footerContent a:hover {
+	color: #eca603;
+
+	/* effets d'animation progressive du bouton*/
+	-webkit-transition: all 0.2s;
+	-moz-transition: all 0.2s;
+	-ms-transition: all 0.2s;
+	-o-transition: all 0.2s;
+	transition: all 0.2s;
+}
+
+.gauche {
+	width: 70%;
+	float: left;
+}
+
+.droite {
+	width: 30%;
+	float: right;
+}
+
+header {
+	position: fixed;
+	top: 0;
+	left: 0;
+}
+
+
+body {
+	color:#fff;
+	background: #aaa fixed;
+}
+
+section {
+	width: 70%;
+	height: 100%;
+	padding: 2em;
+	font: normal 90% "Trebuchet MS",Verdana,"Lucida Grande",Tahoma,Arial,Helvetica,Sans-Serif;
+	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.5);
+}
+
+aside {
+	position: fixed;
+	right: 0;
+}
+
+footer {
+	position: fixed;
+	bottom: 0;
+	margin: 0;
+	background-color: #252214;
+	width: 100%;
+}
+
+footer a {
+	display: inline-block;
+	margin: 1em 1em;
+	color: #eee;
+	text-shadow: 0 0 5px #fff;
+	text-decoration: none;
+	text-transform: uppercase;
+
+	-webkit-transition: all 1s;
+	-moz-transition: all 1s;
+	-ms-transition: all 1s;
+	-o-transition: all 1s;
+	transition: all 1s;
+}
