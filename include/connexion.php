@@ -1,6 +1,6 @@
 <?php
-#Auteur:Guillaume
-#Validateur:
+// Author = Guillaume
+// Checker = Romain
 	define('DB_SERVER', "localhost"); #on défini le serveur
 	define('DB_BASE', "grepsi"); #on défini le nom de la base 
 	define('DB_USER', "grepsi"); #on défini l'utilisateur
