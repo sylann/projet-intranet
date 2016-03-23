@@ -1,5 +1,6 @@
 <?php
 
+<<<<<<< HEAD
 function hautPage () {
 	/** Retourne le code HTML du haut de la page HTML.
 	Author = Thomas
@@ -54,6 +55,13 @@ function afficheFooter () {
 	<li id="epsi-logo"><a href="http://www.epsi.fr" target="_blank"><img src="images/epsi-logo.png" width="100px"></a></li>
 </footer>
 ';
+=======
+function isConnected(){
+  // Author Nicolas
+  // Checker Romain
+  // Renvois 'true' si l'array global $_session contient la chaine de caractère 'ID'
+  return isset($_SESSION['ID']);
+>>>>>>> d30e68d0ddaa1816bf7fce26d8058a8599067507
 }
 
 ?>
