@@ -1,3 +1,3 @@
-<?php // Ce fichier contiendra des fonctions php
+﻿<?php // Ce fichier contiendra des fonctions php
 
 ?>
