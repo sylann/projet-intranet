@@ -144,25 +144,58 @@
 
 }
 
-#cssfooter {
-  padding-top: 5px;
-  padding-bottom: 5px;
-  position: absolute;
-  bottom: 0px;
-  background: #F0800E;
+.footer-distributed{
+  background-color: #2D2A29;
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
+  box-sizing: border-box;
   width: 100%;
-  text-align: center;
-  list-style: none;
+  text-align: left;
+  font: normal 16px Verdana;
+
+  padding: 20px 50px;
+  margin-top: 80px;
 }
 
-#cssfooter ul {
-  list-style: none;
+.footer-distributed .footer-left p{
+  color:  #8f9296;
+  font-size: 14px;
   margin: 0;
-  padding: 0;
-  line-height: 1;
-  display: block;
-  zoom: 1;
 }
 
-#epsi-logo {
+.footer-distributed p.footer-links{
+  font-size:18px;
+  font-weight: bold;
+  color:  #ffffff;
+  margin: 0 0 10px;
+  padding: 0;
+}
+
+.footer-distributed p.footer-links a{
+  display:inline-block;
+  line-height: 1.8;
+  text-decoration: none;
+  color:  inherit;
+}
+
+.footer-distributed .footer-right{
+  float: right;
+  margin-top: 15px;
+  max-width: 180px;
+}
+
+@media (max-width: 600px) {
+
+  .footer-distributed .footer-left,
+  .footer-distributed .footer-right{
+    text-align: center;
+  }
+
+  .footer-distributed .footer-right{
+    float: none;
+    margin: 0 auto 20px;
+  }
+
+  .footer-distributed .footer-left p.footer-links{
+    line-height: 1.8;
+  }
 }
