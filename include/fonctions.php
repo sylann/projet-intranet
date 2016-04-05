@@ -1,5 +1,19 @@
 <?php
-/*
+/**
+* \Message de Sylann :
+* \
+* \ Lorsque vous ouvrez ce fichier pour y ajouter votre fonction, faites bien attention à ne pas modifier le reste du fichier
+* \ Sauf si c'est nécessaire
+* \
+* \ La meilleur façon de faire est d'ajouter votre travail à la fin de ce fichier, en laissant deux
+* \ lignes vides entre la dernière accolade et la première ligne de votre commentaire entète.
+* \
+* \ Pour l'entète, dans le doute, en reprendre un existant.
+* \ Bon codage !
+*/
+
+
+/**
 * \Autheur: Nicolas BOUYSSOUNOUSE.
 * \Vérificateur: Romain VINCENT.
 * \Brief: Vérifie si l'utilisateur est connecté.
@@ -10,7 +24,7 @@ function isConnected(){
 }
 
 
-/*
+/**
 * \Autheur: Thomas BERARD.
 * \Vérificateur: Théo GUIBOUD-RIBAUD.
 * \Brief: Génération du haut de la page HTML.
@@ -18,8 +32,8 @@ function isConnected(){
 */
 function hautPage () {
 	return '<!DOCTYPE html>
-<html>
-<head>
+	<html>
+	<head>
 	<title>GREPSI</title>
 	<meta charset="UTF-8">
 	<meta name="description" content="GREPSI - EPSI Grenoble">
@@ -28,13 +42,13 @@ function hautPage () {
 	<meta name="author" content="Thomas BERARD, Nicolas BOUYSSOUNOUSE, Adrien CECCALDI, Nathan DESCOMBES, Jérôme FABBIAN, Florian GOJON, Théo GUIBOUD-RIBAUD, Guillaume SAYEN, Valentin SOVIGNET, Romain VINCENT">
 	<link rel="stylesheet" type="text/css" href="style/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="style/grepsi.css">
-</head>
-<body>
+	</head>
+	<body>
 	';
 }
 
 
-/*
+/**
 * \Autheur: Thomas BERARD.
 * \Vérificateur: Théo GUIBOUD-RIBAUD.
 * \Brief: Génération du bas de la page HTML.
@@ -42,11 +56,11 @@ function hautPage () {
 */
 function basPage () {
 	return '</body>
-</html>';
+	</html>';
 }
 
 
-/*
+/**
 * \Autheur: Thomas BERARD.
 * \Vérificateur: Théo GUIBOUD-RIBAUD.
 * \Brief: Affiche la barre de navigation en tête de page.
@@ -66,11 +80,11 @@ function afficheMenu () {
 	<li><button type="submit">CONNEXION</button></li>
 	</ul>
 	</nav>
-';
+	';
 }
 
 
-/*
+/**
 * \Autheur: Thomas BERARD.
 * \Vérificateur: Jérôme FABBIAN.
 * \Brief: Affiche le footer en bas de page.
@@ -78,24 +92,37 @@ function afficheMenu () {
 */
 function afficheFooter () {
 	return '<footer class="footer-distributed">
+		<div class="footer-right">
+			<a href="https://www.facebook.com/Campus.EPSI.Grenoble" target="_blank"><img class="icon-social-shrink" src="images/facebook-logo.png" alt="Facebook EPSI Grenoble"></a>
+			<a href="https://twitter.com/EPSIGrenoble" target="_blank"><img class="icon-social-shrink" src="images/twitter-logo.png" alt="Twitter EPSI Grenoble"></a>
+		</div>
 
-			<div class="footer-right">
-
-				<a href="https://www.facebook.com/Campus.EPSI.Grenoble" target="_blank"><img class="icon-social-shrink" src="images/facebook-logo.png" alt="Facebook EPSI Grenoble"></a>
-				<a href="https://twitter.com/EPSIGrenoble" target="_blank"><img class="icon-social-shrink" src="images/twitter-logo.png" alt="Twitter EPSI Grenoble"></a>
-
-			</div>
-
-			<div class="footer-left">
-
-				<a href="http://www.epsi.fr" target="_blank"><img class="epsi-logo" src="images/epsi-logo.png" alt="Facebook EPSI Grenoble" width="120" border="0"></a>
-
-			</div>
-
-		</footer>
-';
+		<div class="footer-left">
+			<a href="http://www.epsi.fr" target="_blank"><img class="epsi-logo" src="images/epsi-logo.png" alt="Facebook EPSI Grenoble" width="120" border="0"></a>
+		</div>
+	</footer>
+	';
 }
-/*brief : fonction qui génère le div « humeur du jour »
+
+
+/**
+* \Autheur: Florian GOJON.
+* \Vérificateur: Nathan
+* \Brief: Génére un tableau avec les id des 25 derniers messages.
+* \Return: tableau.
+*/
+function listeMessages() {
+	global $p_base;
+	$requete = $p_base->query('select id, date from tchat order by date asc limit 25');
+	$table = array();
+	while($resultat = $requete->fetch()) {
+		$table[] = $resultat['id'];
+	}
+	return $table;
+}
+
+
+/**brief : fonction qui génère le div « humeur du jour »
 Entrée : Rien
 Sortie : Chaîne
 Formate une chaîne html qui affiche sélectionne une humeur au hasard dans la table et l'affiche*/
@@ -110,4 +137,7 @@ function affichehumeur(){
 		die ('Erreur : '.$e->getMessage());
 	}
 }
+
+
+
 ?>
