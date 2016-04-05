@@ -61,6 +61,9 @@ function afficheMenu () {
 	<li><a href="#">page3</a></li>
 	<li><a href="#">page4</a></li>
 	<li><a href="#">page5</a></li>
+	<li><input style="margin-top: 5px; margin-left: 15px; width: 150px; text-align: center" type="text" id="identifiant" name="identifiant" placeholder="Entrez votre identifiant"/></li>
+	<li><input style="margin-top: 5px; margin-left: 15px; width: 150px; text-align: center" type="password" id="password" name="password" placeholder="Entrez votre password"/></li>
+	<li><button type="submit">CONNEXION</button></li>
 	</ul>
 	</nav>
 ';
@@ -69,7 +72,7 @@ function afficheMenu () {
 
 /*
 * \Autheur: Thomas BERARD.
-* \Vérificateur: 
+* \Vérificateur: Jérôme FABBIAN.
 * \Brief: Affiche le footer en bas de page.
 * \Return: Footer complet.
 */
@@ -78,14 +81,14 @@ function afficheFooter () {
 
 			<div class="footer-right">
 
-				<a href="https://www.facebook.com/Campus.EPSI.Grenoble" target="_blank"><img src="images/facebook-logo.png" alt="Facebook EPSI Grenoble" width="42" height="42" border="0"></a>
-				<a href="https://twitter.com/EPSIGrenoble" target="_blank"><img src="images/twitter-logo.png" alt="Twitter EPSI Grenoble" width="42" height="42" border="0"></a>
+				<a href="https://www.facebook.com/Campus.EPSI.Grenoble" target="_blank"><img class="icon-social-shrink" src="images/facebook-logo.png" alt="Facebook EPSI Grenoble"></a>
+				<a href="https://twitter.com/EPSIGrenoble" target="_blank"><img class="icon-social-shrink" src="images/twitter-logo.png" alt="Twitter EPSI Grenoble"></a>
 
 			</div>
 
 			<div class="footer-left">
 
-				<a href="http://www.epsi.fr" target="_blank"><img src="images/epsi-logo.png" alt="Facebook EPSI Grenoble" width="120" border="0"></a>
+				<a href="http://www.epsi.fr" target="_blank"><img class="epsi-logo" src="images/epsi-logo.png" alt="Facebook EPSI Grenoble" width="120" border="0"></a>
 
 			</div>
 
