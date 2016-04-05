@@ -95,5 +95,19 @@ function afficheFooter () {
 		</footer>
 ';
 }
-
+/*brief : fonction qui génère le div « humeur du jour »
+Entrée : Rien
+Sortie : Chaîne
+Formate une chaîne html qui affiche sélectionne une humeur au hasard dans la table et l'affiche*/
+function affichehumeur(){
+	global $p_base;
+	try{
+		$requete = $p_base->query("select contenu from tchat where humeur=1 ORDER BY rand() LIMIT 0,1");
+		$resultat=$requete->fetch();
+		return '<div class="humeur">'.$resultat['contenu'].'</div>';
+	}
+	catch(Exception $e){
+		die ('Erreur : '.$e->getMessage());
+	}
+}
 ?>
