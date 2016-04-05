@@ -1,5 +1,19 @@
 <?php
-/*
+/**
+* \Message de Sylann :
+* \
+* \ Lorsque vous ouvrez ce fichier pour y ajouter votre fonction, faites bien attention à ne pas modifier le reste du fichier
+* \ Sauf si c'est nécessaire
+* \
+* \ La meilleur façon de faire est d'ajouter votre travail à la fin de ce fichier, en laissant deux
+* \ lignes vides entre la dernière accolade et la première ligne de votre commentaire entète.
+* \
+* \ Pour l'entète, dans le doute, en reprendre un existant.
+* \ Bon codage !
+*/
+
+
+/**
 * \Autheur: Nicolas BOUYSSOUNOUSE.
 * \Vérificateur: Romain VINCENT.
 * \Brief: Vérifie si l'utilisateur est connecté.
@@ -10,7 +24,7 @@ function isConnected(){
 }
 
 
-/*
+/**
 * \Autheur: Thomas BERARD.
 * \Vérificateur: Théo GUIBOUD-RIBAUD.
 * \Brief: Génération du haut de la page HTML.
@@ -34,7 +48,7 @@ function hautPage () {
 }
 
 
-/*
+/**
 * \Autheur: Thomas BERARD.
 * \Vérificateur: Théo GUIBOUD-RIBAUD.
 * \Brief: Génération du bas de la page HTML.
@@ -46,7 +60,7 @@ function basPage () {
 }
 
 
-/*
+/**
 * \Autheur: Thomas BERARD.
 * \Vérificateur: Théo GUIBOUD-RIBAUD.
 * \Brief: Affiche la barre de navigation en tête de page.
@@ -61,37 +75,36 @@ function afficheMenu () {
 	<li><a href="#">page3</a></li>
 	<li><a href="#">page4</a></li>
 	<li><a href="#">page5</a></li>
+	<li><input style="margin-top: 5px; margin-left: 15px; width: 150px; text-align: center" type="text" id="identifiant" name="identifiant" placeholder="Entrez votre identifiant"/></li>
+	<li><input style="margin-top: 5px; margin-left: 15px; width: 150px; text-align: center" type="password" id="password" name="password" placeholder="Entrez votre password"/></li>
+	<li><button type="submit">CONNEXION</button></li>
 	</ul>
 	</nav>
 	';
 }
 
 
-/*
+/**
 * \Autheur: Thomas BERARD.
-* \Vérificateur:
+* \Vérificateur: Jérôme FABBIAN.
 * \Brief: Affiche le footer en bas de page.
 * \Return: Footer complet.
 */
 function afficheFooter () {
 	return '<footer class="footer-distributed">
+		<div class="footer-right">
+			<a href="https://www.facebook.com/Campus.EPSI.Grenoble" target="_blank"><img class="icon-social-shrink" src="images/facebook-logo.png" alt="Facebook EPSI Grenoble"></a>
+			<a href="https://twitter.com/EPSIGrenoble" target="_blank"><img class="icon-social-shrink" src="images/twitter-logo.png" alt="Twitter EPSI Grenoble"></a>
+		</div>
 
-	<div class="footer-right">
-
-	<a href="https://www.facebook.com/Campus.EPSI.Grenoble" target="_blank"><img src="images/facebook-logo.png" alt="Facebook EPSI Grenoble" width="42" height="42" border="0"></a>
-	<a href="https://twitter.com/EPSIGrenoble" target="_blank"><img src="images/twitter-logo.png" alt="Twitter EPSI Grenoble" width="42" height="42" border="0"></a>
-
-	</div>
-
-	<div class="footer-left">
-
-	<a href="http://www.epsi.fr" target="_blank"><img src="images/epsi-logo.png" alt="Facebook EPSI Grenoble" width="120" border="0"></a>
-
-	</div>
-
+		<div class="footer-left">
+			<a href="http://www.epsi.fr" target="_blank"><img class="epsi-logo" src="images/epsi-logo.png" alt="Facebook EPSI Grenoble" width="120" border="0"></a>
+		</div>
 	</footer>
 	';
 }
+
+
 /**
 * \Autheur: Florian GOJON.
 * \Vérificateur: Nathan
@@ -107,4 +120,24 @@ function listeMessages() {
 	}
 	return $table;
 }
+
+
+/**brief : fonction qui génère le div « humeur du jour »
+Entrée : Rien
+Sortie : Chaîne
+Formate une chaîne html qui affiche sélectionne une humeur au hasard dans la table et l'affiche*/
+function affichehumeur(){
+	global $p_base;
+	try{
+		$requete = $p_base->query("select contenu from tchat where humeur=1 ORDER BY rand() LIMIT 0,1");
+		$resultat=$requete->fetch();
+		return '<div class="humeur">'.$resultat['contenu'].'</div>';
+	}
+	catch(Exception $e){
+		die ('Erreur : '.$e->getMessage());
+	}
+}
+
+
+
 ?>
