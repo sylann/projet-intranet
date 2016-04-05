@@ -6,7 +6,7 @@
 * \Return: Retourne 'true' si l'array global $_session contient la chaine de caractère 'ID'.
 */
 function isConnected(){
-	return isset($_SESSION['ID']);
+  return isset($_SESSION['ID']);
 }
 
 
@@ -17,20 +17,20 @@ function isConnected(){
 * \Return: <!DOCTYPE html> & co.
 */
 function hautPage () {
-	return '<!DOCTYPE html>
+  return '<!DOCTYPE html>
 <html>
 <head>
-	<title>GREPSI</title>
-	<meta charset="UTF-8">
-	<meta name="description" content="GREPSI - EPSI Grenoble">
-	<meta name="keywords" content="EPSI, Grenoble">
-	<meta name="language" content="fr">
-	<meta name="author" content="Thomas BERARD, Nicolas BOUYSSOUNOUSE, Adrien CECCALDI, Nathan DESCOMBES, Jérôme FABBIAN, Florian GOJON, Théo GUIBOUD-RIBAUD, Guillaume SAYEN, Valentin SOVIGNET, Romain VINCENT">
-	<link rel="stylesheet" type="text/css" href="style/bootstrap.css">
-	<link rel="stylesheet" type="text/css" href="style/grepsi.css">
+  <title>GREPSI</title>
+  <meta charset="UTF-8">
+  <meta name="description" content="GREPSI - EPSI Grenoble">
+  <meta name="keywords" content="EPSI, Grenoble">
+  <meta name="language" content="fr">
+  <meta name="author" content="Thomas BERARD, Nicolas BOUYSSOUNOUSE, Adrien CECCALDI, Nathan DESCOMBES, Jérôme FABBIAN, Florian GOJON, Théo GUIBOUD-RIBAUD, Guillaume SAYEN, Valentin SOVIGNET, Romain VINCENT">
+  <link rel="stylesheet" type="text/css" href="style/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="style/grepsi.css">
 </head>
 <body>
-	';
+  ';
 }
 
 
@@ -41,7 +41,7 @@ function hautPage () {
 * \Return: </body> & </html>.
 */
 function basPage () {
-	return '</body>
+  return '</body>
 </html>';
 }
 
@@ -53,16 +53,16 @@ function basPage () {
 * \Return: Barre de navigation.
 */
 function afficheMenu () {
-	return '<nav id="cssmenu">
-	<ul>
-	<li><a href="#">Accueil</a></li>
-	<li><a href="#">page1</a></li>
-	<li><a href="#">page2</a></li>
-	<li><a href="#">page3</a></li>
-	<li><a href="#">page4</a></li>
-	<li><a href="#">page5</a></li>
-	</ul>
-	</nav>
+  return '<nav id="cssmenu">
+  <ul>
+  <li><a href="#">Accueil</a></li>
+  <li><a href="#">page1</a></li>
+  <li><a href="#">page2</a></li>
+  <li><a href="#">page3</a></li>
+  <li><a href="#">page4</a></li>
+  <li><a href="#">page5</a></li>
+  </ul>
+  </nav>
 ';
 }
 
@@ -74,23 +74,37 @@ function afficheMenu () {
 * \Return: Footer complet.
 */
 function afficheFooter () {
-	return '<footer class="footer-distributed">
+  return '<footer class="footer-distributed">
 
-			<div class="footer-right">
+      <div class="footer-right">
 
-				<a href="https://www.facebook.com/Campus.EPSI.Grenoble" target="_blank"><img src="images/facebook-logo.png" alt="Facebook EPSI Grenoble" width="42" height="42" border="0"></a>
-				<a href="https://twitter.com/EPSIGrenoble" target="_blank"><img src="images/twitter-logo.png" alt="Twitter EPSI Grenoble" width="42" height="42" border="0"></a>
+        <a href="https://www.facebook.com/Campus.EPSI.Grenoble" target="_blank"><img src="images/facebook-logo.png" alt="Facebook EPSI Grenoble" width="42" height="42" border="0"></a>
+        <a href="https://twitter.com/EPSIGrenoble" target="_blank"><img src="images/twitter-logo.png" alt="Twitter EPSI Grenoble" width="42" height="42" border="0"></a>
 
-			</div>
+      </div>
 
-			<div class="footer-left">
+      <div class="footer-left">
 
-				<a href="http://www.epsi.fr" target="_blank"><img src="images/epsi-logo.png" alt="Facebook EPSI Grenoble" width="120" border="0"></a>
+        <a href="http://www.epsi.fr" target="_blank"><img src="images/epsi-logo.png" alt="Facebook EPSI Grenoble" width="120" border="0"></a>
 
-			</div>
+      </div>
 
-		</footer>
+    </footer>
 ';
 }
-
+/**
+* \Autheur: Florian GOJON.
+* \Vérificateur: Nathan
+* \Brief: Génére un tableau avec les id des 25 derniers messages.
+* \Return: tableau.
+*/
+function listeMessages() {
+  global $p_base;
+  $requete = $p_base->query('select id, date from tchat order by date asc limit 25');
+  $table = array();
+  while($resultat = $requete->fetch()) {
+    $table[] = $resultat['id'];
+  }
+  return $table;
+}
 ?>
