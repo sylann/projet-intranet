@@ -107,7 +107,7 @@ function afficheFooter () {
 
 /**
 * \Autheur: Florian GOJON.
-* \Vérificateur: Nathan
+* \Vérificateur: Guillaume
 * \Brief: Génére un tableau avec les id des 25 derniers messages.
 * \Return: tableau.
 */
