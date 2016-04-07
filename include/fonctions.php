@@ -107,7 +107,7 @@ function afficheFooter () {
 
 /**
 * \Autheur: Florian GOJON.
-* \Vérificateur: Nathan
+* \Vérificateur: Guillaume
 * \Brief: Génére un tableau avec les id des 25 derniers messages.
 * \Return: tableau.
 */
@@ -144,7 +144,7 @@ function getUtilisateur($idUtilisateur){
 	/**
 	*\brief Retourner un tableau chargé des infos de l'utilisateur
 	*\author = Valentin
-	*\checker = ?
+	*\checker = Guillaume
 	*\param = idUtilisateur entier
 	*\return un tableau*/
 	try{
@@ -181,6 +181,7 @@ function getUtilisateur($idUtilisateur){
 	}
 	return $tableauUtilisateur;		//on retourne le tableau
 }
+
 
 function chargeUtilisateur($tableauUtilisateur){
 	/**
