@@ -142,11 +142,11 @@ function affichehumeur(){
 function getUtilisateur($idUtilisateur){
 	global $p_base;			//pour avoir accès à la la variable $p_base
 	/**
-	\brief Retourner un tableau chargé des infos de l'utilisateur
-	\author = Valentin
-	\checker = ?
-	\param = idUtilisateur entier
-	\return un tableau*/
+	*\brief Retourner un tableau chargé des infos de l'utilisateur
+	*\author = Valentin
+	*\checker = ?
+	*\param = idUtilisateur entier
+	*\return un tableau*/
 	try{
 		$p_requete = $p_base->prepare("SELECT * FROM personne WHERE id = :idUtilisateur");		//requête SQL nous donnant toutes les informations d'un utilisateur
 		$p_requete->execute(array('idUtilisateur'=> $idUtilisateur));
@@ -184,11 +184,11 @@ function getUtilisateur($idUtilisateur){
 
 function chargeUtilisateur($tableauUtilisateur){
 	/**
-	\brief mettre les informations de l'utilisateur dans les $_SESSION
-	\author = Valentin
-	\checker = ?
-	\param = tableauUtilisateur tableau
-	\return rien*/
+	*\brief mettre les informations de l'utilisateur dans les $_SESSION
+	*\author = Valentin
+	*\checker = ?
+	*\param = tableauUtilisateur tableau
+	*\return rien*/
 	foreach($tableauUtilisateur as $key => $value){		//pour chaque valeur dans le tableau
 		$_SESSION[$key] = $value;						//on assigne une valeur à cette variable de session
 	}
@@ -196,11 +196,11 @@ function chargeUtilisateur($tableauUtilisateur){
 
 function afficheUtilisateur($tableauUtilisateur){
 	/**
-	\brief Renvoie les informations de l'utilisateur (sa fiche)
-	\author = Valentin
-	\checker = ?
-	\param = tableauUtilisateur tableau
-	\return string*/
+	*\brief Renvoie les informations de l'utilisateur (sa fiche)
+	*\author = Valentin
+	*\checker = ?
+	*\param = tableauUtilisateur tableau
+	*\return string*/
 	$chaine = "";
 	foreach($tableauUtilisateur as $key => $value){				//pour chaque valeur dans le tableau
 		$chaine .= '<p>-- ' . $key . ' : ' . $value . '</p>';	//on fait des paragraphes avec ce qu'est la variable et sa valeur
@@ -210,11 +210,11 @@ function afficheUtilisateur($tableauUtilisateur){
 
 function afficheMiniUtilisateur($tableauUtilisateur){
 	/**
-	\brief Renvoie les informations de l'utilisateur sous la forme d'une mini fiche
-	\author = Valentin
-	\checker = ?
-	\param = tableauUtilisateur tableau
-	\return string*/
+	*\brief Renvoie les informations de l'utilisateur sous la forme d'une mini fiche
+	*\author = Valentin
+	*\checker = ?
+	*\param = tableauUtilisateur tableau
+	*\return string*/
 	return'<img src="' . $tableauUtilisateur['photo'] . '" title="Nom : ' . $tableauUtilisateur['nom'] . ', Prenom : ' . $tableauUtilisateur['prenom'] .'">';
 }
 
