@@ -144,7 +144,7 @@ function getUtilisateur($idUtilisateur){
 	/**
 	*\brief Retourner un tableau chargé des infos de l'utilisateur
 	*\author = Valentin
-	*\checker = ?
+	*\checker = Guillaume
 	*\param = idUtilisateur entier
 	*\return un tableau*/
 	try{
@@ -181,6 +181,7 @@ function getUtilisateur($idUtilisateur){
 	}
 	return $tableauUtilisateur;		//on retourne le tableau
 }
+
 
 function chargeUtilisateur($tableauUtilisateur){
 	/**
