@@ -144,19 +144,19 @@ function affichehumeur(){
 
 
 /**
-*\author Valentin
-*\checker
 *\brief Retourner un tableau chargé des infos de l'utilisateur
-*\param /a $idUtilisateur
-*\return array
-*/
+*\author = Valentin
+*\checker = ?
+*\param = idUtilisateur entier
+*\return un tableau*/
 function getUtilisateur($idUtilisateur){
-	global $p_base;
+	global $p_base;			//pour avoir accès à la la variable $p_base
 	try{
 		$p_requete = $p_base->prepare("SELECT * FROM personne WHERE id = :idUtilisateur");		//requête SQL nous donnant toutes les informations d'un utilisateur
 		$p_requete->execute(array('idUtilisateur'=> $idUtilisateur));
 		$donnees = $p_requete->fetch();
 
+		$tableauUtilisateur["id"] = $donnees['id'];
 		$tableauUtilisateur["mail"] = $donnees['mail'];					//on met toutes les informations de la table dans le tableau
 		$tableauUtilisateur["password"] = $donnees['password'];
 		$tableauUtilisateur["nom"] = $donnees['nom'];
@@ -189,13 +189,13 @@ function getUtilisateur($idUtilisateur){
 
 
 /**
+*\brief mettre les informations de l'utilisateur dans les $_SESSION
 *\author = Valentin
 *\checker = ?
-*\brief mettre les informations de l'utilisateur dans les  \a $_SESSION/
-*\param \a $tableauUtilisateur/
-*\return rien
-*/
+*\param = tableauUtilisateur tableau
+*\return rien*/
 function chargeUtilisateur($tableauUtilisateur){
+	
 	foreach($tableauUtilisateur as $key => $value){		//pour chaque valeur dans le tableau
 		$_SESSION[$key] = $value;						//on assigne une valeur à cette variable de session
 	}
@@ -203,12 +203,11 @@ function chargeUtilisateur($tableauUtilisateur){
 
 
 /**
-*\author Valentin
-*\checker
 *\brief Renvoie les informations de l'utilisateur (sa fiche)
-*\param \a $tableauUtilisateur/
-*\return string
-*/
+*\author = Valentin
+*\checker = ?
+*\param = rien
+*\return string*/
 function afficheUtilisateur($tableauUtilisateur){
 	$chaine = "";
 	foreach($tableauUtilisateur as $key => $value){				//pour chaque valeur dans le tableau
@@ -219,14 +218,49 @@ function afficheUtilisateur($tableauUtilisateur){
 
 
 /**
-*\author Valentin
-*\checker
 *\brief Renvoie les informations de l'utilisateur sous la forme d'une mini fiche
-*\param \a $tableauUtilisateur/
-*\return string
-*/
+*\author = Valentin
+*\checker = ?
+*\param = idpersonne integer
+*\return string*/
 function afficheMiniUtilisateur($tableauUtilisateur){
-	return'<img src="' . $tableauUtilisateur['photo'] . '" title="Nom : ' . $tableauUtilisateur['nom'] . ', Prenom : ' . $tableauUtilisateur['prenom'] .'">';
+	return'<a href="personne.php?id=' . $tableauUtilisateur['id'] . '"><img src="' . $tableauUtilisateur['photo'] . '" title="Nom : ' . $tableauUtilisateur['nom'] . '   Prenom : ' . $tableauUtilisateur['prenom'] .'"></a>';
+}
+
+
+/**
+*\brief Renvoie une chaine html permettant d'afficher le trombinoscope d'un groupe d'utilisateurs
+*\author = Valentin
+*\checker = ?
+*\param = idGroupe
+*\return string*/
+function afficheTrombinoscope($idGroupe){
+	global $p_base;			//pour avoir accès à la la variable $p_base
+	$chaineTrombi = "<div>";
+	try{
+		$p_requete = $p_base->query("SELECT idpersonne FROM membre WHERE idgroupe = $idGroupe");
+		while($donnees = $p_requete->fetch()){
+			$idPersonne = $donnees['idpersonne'];
+
+			$p_requete2 = $p_base->query("SELECT id, nom, prenom, photo FROM personne WHERE id = $idPersonne");
+			$donnees2 = $p_requete2->fetch();
+
+			$tableauReduit['id'] = $donnees2['id'];
+			$tableauReduit['nom'] = $donnees2['nom'];
+			$tableauReduit['prenom'] = $donnees2['prenom'];
+			$tableauReduit['photo'] = $donnees2['photo'];
+
+			$chaineTrombi .= afficheMiniUtilisateur($tableauReduit);
+		}
+
+		$p_requete2->closeCursor(); 		// Termine le traitement de la requête
+	}
+	catch(Exception $e){
+	// En cas d'erreur précédemment, on affiche un message et on arrête tout
+		die('Erreur : '.$e->getMessage());
+	}
+	$chaineTrombi .= "</div>";
+	return $chaineTrombi;
 }
 
 
