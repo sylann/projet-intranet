@@ -17,7 +17,7 @@
 *\author Nicolas BOUYSSOUNOUSE
 *\checker Romain VINCENT
 *\brief Vérifie si l'utilisateur est connecté
-*\return boolval
+*\return boolean
 * Information supplémentaire
 * Retourne 'true' si l'array global $_session contient la chaine de caractère 'ID'
 */
