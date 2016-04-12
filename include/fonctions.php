@@ -1,13 +1,13 @@
 <?php
 /**
 * Message de Sylann :
-* 
+*
 * Lorsque vous ouvrez ce fichier pour y ajouter votre fonction, faites bien attention à ne pas modifier le reste du fichier
 * Sauf si c'est nécessaire
-* 
+*
 * La meilleur façon de faire est d'ajouter votre travail à la fin de ce fichier, en laissant deux
 * lignes vides entre la dernière accolade et la première ligne de votre commentaire entète.
-* 
+*
 * Pour l'entète, dans le doute, en reprendre un existant.
 * Bon codage !
 */
@@ -17,7 +17,9 @@
 *\author Nicolas BOUYSSOUNOUSE
 *\checker Romain VINCENT
 *\brief Vérifie si l'utilisateur est connecté
-*\return Retourne 'true' si l'array global $_session contient la chaine de caractère 'ID'
+*\return boolean
+* Information supplémentaire
+* Retourne 'true' si l'array global $_session contient la chaine de caractère 'ID'
 */
 function isConnected(){
 	return isset($_SESSION['ID']);
@@ -124,7 +126,7 @@ function listeMessages() {
 
 /**
 *\author Guillaume
-*\checker 
+*\checker
 *\brief fonction qui génère le div « humeur du jour »
 *\return string
 * Information supplémentaire
@@ -266,7 +268,7 @@ function afficheTrombinoscope($idGroupe){
 
 /**
 *\author Adrien
-*\checker 
+*\checker
 *\brief Fonction affichage d'un post avec partie user, mise en page & toolbar
 *\param \a $idPost/
 *\return string
@@ -286,7 +288,7 @@ function affichePost ($idPost) {
 	catch(Exception $e){
 	die ('Erreur : '.$e->getMessage());
 	}
-	return	'<table class="posttable" cellpadding="4" cellspacing="0" width="100%"> 
+	return	'<table class="posttable" cellpadding="4" cellspacing="0" width="100%">
 				<tbody>
 					<td class="user" rowspan="1" valign="top" width="150">
 						<center>
@@ -363,4 +365,83 @@ function getBlog() {
 	die ('Erreur : '.$e->getMessage());
 	}
 	return $tableBlog;
+}
+
+
+/**
+*\author Nicolas BOUYSSOUNOUSE
+*\checker
+*\brief renvoie le nombre maximum de MOTD dans la base de donnée
+*\return int
+* Information supplémentaire
+* Requète SQL avec recherche du nombre de ligne de la table quotidien
+*/
+function countMOTD(){
+    global $p_base;
+    // Ce bloc renvoie le nombre maximum de MOTD dans la base de donnée
+    try{
+        $nbMOTD = $p_base->query('select count(*) from quotidien');
+        $resultat = $nbMOTD->fetch();
+        $nbMOTD=$resultat[0];
+    }
+    catch(Exception $e) {
+        die('Erreur : '.$e->getMessage());
+    }
+    return $nbMOTD;
+}
+
+
+/**
+*\author Nicolas BOUYSSOUNOUSE
+*\checker
+*\brief renvoie le code HTML qui affiche le MOTD
+*\param \a $alea/
+*\return string
+* Information supplémentaire
+* Requète SQL qui va sélectionner la maxime et son auteur dans la table "quotidien"
+* STRUCTURE HTML
+*   <div>
+*       <h4> blablabla </h4>
+*       <cite> by blablabla </cite>
+*   </div>
+*/
+function faitJour($alea){
+    global $p_base;
+    $MOTD="<div>";
+
+    // Ce bloque concerne la requète SQL d'une citation aléatoire en fonction de "$nbMOTD"
+    try{
+        $MaximEtAuteur = $p_base->query('
+        SELECT maxime, auteur
+        FROM quotidien
+        LIMIT '.$alea.',1 ;');
+        $resultat = $MaximEtAuteur->fetch();
+        $Maxime = '<h4>'.$resultat[0].'</h4>';
+        $Auteur = '<cite>'.$resultat[1].'</cite>';
+    }
+    catch(Exception $e) {
+        die('Erreur : '.$e->getMessage());
+    }
+    $MOTD.=$Maxime.$Auteur;
+    $MOTD.="</div>";
+
+    return $MOTD;
+
+}
+
+
+/**
+*\author Nicolas BOUYSSOUNOUSE
+*\checker
+*\brief renvoie le code HTML qui affiche le MOTD
+*\return string
+* Information supplémentaire
+* La fonction récupère le jour de la semaine, est le défini comme seed des prochains rand().
+* $alea va contenir un chiffre définis aléatoirement entre 0 et 'countMOTD()-1'.
+*/
+function afficheFaitJour(){
+    $day = getdate()['wday'];
+    srand($day);
+    $alea = rand(0, countMOTD()-1);
+    return faitJour($alea);
 }
