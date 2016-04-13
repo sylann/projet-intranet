@@ -434,7 +434,7 @@ function faitJour($alea){
 *\author Nicolas BOUYSSOUNOUSE
 *\checker
 *\brief renvoie le code HTML qui affiche le MOTD
-*\return string ()
+*\return string
 * Information supplémentaire
 * La fonction récupère le jour de la semaine, est le défini comme seed des prochains rand().
 * $alea va contenir un chiffre définis aléatoirement entre 0 et 'countMOTD()-1'.
@@ -446,44 +446,30 @@ function afficheFaitJour(){
     return faitJour($alea);
 }
 
-/**
-* \Author Florian GOJON.
-* \Checker Nathan
-* \Brief Génére un tableau avec les id des 25 derniers messages.
-* \Return array (qui contient 25 tableaux, contenant chacun l'id et la date du message)
-*/
-function listeMessages() {
-  global $p_base;
-  $requete = $p_base->query('select id, date from tchat order by date asc limit 25');
-  $table = array();
-  while($resultat = $requete->fetch()) {
-    $table[] = $resultat['id'];
-    $table[] .= $resultat['date'];
-  }
-  return $table;
-}
 
 /**
-* \Author Florian GOJON.
-* \Checker
-* \Brief Affiche les messages du chat
-* \input \a $table/ (tableau qui contient l'id et la date du message)
-* \Return array (chaine à afficher)
+*\author Adrien
+*\checker 
+*\brief Fonction retourne l'id du dernier article
+*\return id article
+* Informations supplémentaires
+* Nombre d'article à ramener actuellement = 1
+* Return l'Id d'un article, cet article est choisi par requête SQL, cette dernière est un select dans les articles où la date de création de l'article est la plus récente (order by date desc	et on prend le premier).
+* Rangement des résultats dans le tableau 'tableDernierArticle'
 */
-function afficheMessageChat($table){
-  global $p_base;
-  $id = $table[0];
-  $date = $table[1];
-  $date = date("H:i:s");
-  $requete = $p_base ->query('select contenu, pseudo from personne, tchat where personne.id = tchat.idpersonne and tchat.id =' . $id);
-  $resultat = $requete->fetch();
-  
-  $pseudo = $resultat['pseudo'];
-  $reponse = "<div class=chat><span class=pseudo>  ".$date. " : " .$pseudo. ' :' . "</span> ";
-  
-  $reponse .= "<span class=contenu>" . $resultat['contenu'] . "</span>";
-  $reponse .= "</div>";
-  return $reponse;
+function getDernierArticle() {
+	global $p_base;
+	try {
+		$requete = $p_base->query(' select id, datecrea from wiki order by datecrea DESC limit 1 ');
+		$tableDernierArticle = array();
+		while($resultat = $requete->fetch()) {
+			$tableDernierArticle[] = $resultat['id'];
+		}
+	}
+	catch(Exception $e){
+		die ('Erreur : '.$e->getMessage());
+	}
+	return $tableDernierArticle;
 }
 
 ?>
