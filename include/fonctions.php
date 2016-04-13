@@ -434,7 +434,7 @@ function faitJour($alea){
 *\author Nicolas BOUYSSOUNOUSE
 *\checker
 *\brief renvoie le code HTML qui affiche le MOTD
-*\return string
+*\return string ()
 * Information supplémentaire
 * La fonction récupère le jour de la semaine, est le défini comme seed des prochains rand().
 * $alea va contenir un chiffre définis aléatoirement entre 0 et 'countMOTD()-1'.
@@ -445,3 +445,45 @@ function afficheFaitJour(){
     $alea = rand(0, countMOTD()-1);
     return faitJour($alea);
 }
+
+/**
+* \Author Florian GOJON.
+* \Checker Nathan
+* \Brief Génére un tableau avec les id des 25 derniers messages.
+* \Return array (qui contient 25 tableaux, contenant chacun l'id et la date du message)
+*/
+function listeMessages() {
+  global $p_base;
+  $requete = $p_base->query('select id, date from tchat order by date asc limit 25');
+  $table = array();
+  while($resultat = $requete->fetch()) {
+    $table[] = $resultat['id'];
+    $table[] .= $resultat['date'];
+  }
+  return $table;
+}
+
+/**
+* \Author Florian GOJON.
+* \Checker
+* \Brief Affiche les messages du chat
+* \input \a $table/ (tableau qui contient l'id et la date du message)
+* \Return array (chaine à afficher)
+*/
+function afficheMessageChat($table){
+  global $p_base;
+  $id = $table[0];
+  $date = $table[1];
+  $date = date("H:i:s");
+  $requete = $p_base ->query('select contenu, pseudo from personne, tchat where personne.id = tchat.idpersonne and tchat.id =' . $id);
+  $resultat = $requete->fetch();
+  
+  $pseudo = $resultat['pseudo'];
+  $reponse = "<div class=chat><span class=pseudo>  ".$date. " : " .$pseudo. ' :' . "</span> ";
+  
+  $reponse .= "<span class=contenu>" . $resultat['contenu'] . "</span>";
+  $reponse .= "</div>";
+  return $reponse;
+}
+
+?>
