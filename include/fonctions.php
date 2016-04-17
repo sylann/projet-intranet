@@ -1,3 +1,4 @@
+<?php
 /**
 * Message de Sylann :
 *
@@ -524,5 +525,156 @@ function setArborescence($pathRequest){
     }
 }
 
+
+/**
+*\author Valentin
+*\checker ?
+*\brief Renvoie une chaine html qui permet d'afficher la liste des articles
+*\param integer valant le début de la requête
+*\return chaine html
+*informations supplémentaire : utilise la fonction afficheMiniArticleWiki()*/
+function afficheListeArticle($debut){
+	global $p_base;			//pour avoir accès à la la variable $p_base
+	$listeArticle = "<div><ul>";
+
+	try{
+		$p_requete = $p_base->query("SELECT id FROM wiki LIMIT ". $debut .",20");
+		while($donnees = $p_requete->fetch()){
+			$listeArticle .= "<li>". afficheMiniArticle($donnees['id']) ."</li>";
+		}
+
+		$p_requete->closeCursor(); 		// Termine le traitement de la requête
+	}
+	catch(Exception $e){
+	// En cas d'erreur précédemment, on affiche un message et on arrête tout
+		die('Erreur : '.$e->getMessage());
+	}
+
+	$listeArticle .= "</ul></div>";
+	return $listeArticle;
+}
+
+
+/**
+*\author Valentin
+*\checker ?
+*\brief return une chaine html qui permet d'afficher la liste des articles ainsi que les liens de navigation
+*\param rien
+*\return chaine html
+*\informations supplémentaire :  utilise les fonctions afficheListeArticleWiki() et navigation()*/
+function setupNavigationListeArticle(){
+	global $p_base;
+
+	if (isset($_GET['page'])) {			//si 'page' vaut quelque chose (--> si on a page=quelque chose)
+		$pageCourante = $_GET['page'];	//pageCourante prend la valeur de page="?"
+	}
+	else {
+		$pageCourante = 1;				//sinon la variable prend la valeur 1 (page 1)
+	}
+
+	if($pageCourante < 1) {				//pour ne pas pouvoir écrire un numéro de page négatif dans l'url, on revient à la première page
+		$pageCourante = 1;
+	}
+
+	$debut = 20 * ($pageCourante - 1);
+
+
+    try{
+        $reponse = $p_base->query("SELECT count(*) AS compteur FROM wiki");		//on compte le nombre d'articles dans le wiki
+        $donnees = $reponse->fetch();
+        $taille = $donnees['compteur'];
+    }
+    catch(Exception $e){
+        // En cas d'erreur, on affiche un message et on arrête tout
+        die('Erreur : '.$e->getMessage());
+    }
+
+	$dernierePage = floor($taille / 20);
+
+	if((($pageCourante - 1) * 20) > $taille){		//si on tape dans l'url un num de page supérieur à la dernière page
+		header('Location: index.php');		//on redirige vers la première page de listeville.php
+	}
+
+	$retour = navigation($pageCourante, $dernierePage);	//les boutons page suivante et page précédente
+	$retour .= afficheListeArticle($debut);		//la liste des articles
+	$retour .= navigation($pageCourante, $dernierePage);	//les boutons page suivante et page précédente
+
+	return $retour;
+}
+
+
+/**
+*\author Valentin
+*\checker ?
+*\brief Renvoie une chaine html qui permet d'afficher les liens de navigation
+*\param 2 integer
+*\return chaine html
+*informations complémentaires : pour les param-->integer valant le $_GET['page'] et integer valant le numéro de la dernière page des articles wiki*/
+function navigation($pageCourante, $dernierePage){
+	if($dernierePage <= 1){			//si il n'y a qu'une page
+		return '';						//on return rien
+	}
+	elseif($pageCourante <= 1){				//si on est en page 1 ou moins, on affiche un seul lien (suivant)
+		return '<ul>
+					<li><a href="'.basename($_SERVER['PHP_SELF']).'?page='.($pageCourante + 1).'">Page suivante</a></li>
+				</ul>';
+	}
+	elseif($pageCourante > $dernierePage){		//si on est à la dernière page ou plus, on n'affiche pas le lien page suivante
+		return '<ul>
+					<li><a href="'.basename($_SERVER['PHP_SELF']).'?page='.($pageCourante - 1).'">Page précédente</a></li>
+				</ul>';
+		
+	}
+	else{								//si on n'est pas en page 1 ou plus mais moins que la dernière page, on affiche les 2 liens
+		return '<ul>
+					<li><a href="'.basename($_SERVER['PHP_SELF']).'?page='.($pageCourante - 1).'">Page précédente</a></li>
+					<li><a href="'.basename($_SERVER['PHP_SELF']).'?page='.($pageCourante + 1).'">Page suivante</a></li>
+				</ul>';
+	}
+}
+
+
+/**
+*\author Valentin
+*\checker ?
+*\brief Renvoie l'id de l'article le plus vu du wiki
+*\param rien
+*\return id*/
+function getMostViewedArticle(){
+	global $p_base;			//pour avoir accès à la la variable $p_base
+	try{
+		$p_requete = $p_base->query("SELECT id, visites FROM wiki ORDER BY 2 DESC LIMIT 0,1");
+		$donnees = $p_requete->fetch();
+		return $donnees['id'];
+		$p_requete->closeCursor(); 		// Termine le traitement de la requête
+	}
+	catch(Exception $e){
+	// En cas d'erreur précédemment, on affiche un message et on arrête tout
+		die('Erreur : '.$e->getMessage());
+	}
+}
+
+
+/**
+*\author Valentin
+*\checker ?
+*\brief Renvoie une chaine html qui permet d'afficher l'article
+*\param id de l'article
+*\return chaine html*/
+function afficheArticle($idArticle){
+	global $p_base;			//pour avoir accès à la la variable $p_base
+	try{
+		$p_requete = $p_base->query("SELECT wiki.label AS label, wiki.contenu AS contenu, wiki.datecrea AS dateCreation, wiki.visites AS visites, personne.pseudo AS pseudo FROM wiki, personne WHERE wiki.id = " . $idArticle . " and wiki.idpersonne = personne.id");
+		$donnees = $p_requete->fetch();
+
+		return'<div><p>'. $donnees['label'] .'</p><p>'. $donnees['pseudo'] .'</p><p>'. $donnees['dateCreation'] .'</p><p>'. $donnees['contenu'] .'</p><p>'. $donnees['visites'] .' vues</p></div>';
+
+		$p_requete->closeCursor(); 		// Termine le traitement de la requête
+	}
+	catch(Exception $e){
+	// En cas d'erreur précédemment, on affiche un message et on arrête tout
+		die('Erreur : '.$e->getMessage());
+	}
+}
 
 ?>
