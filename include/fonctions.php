@@ -14,7 +14,7 @@
 
 
 /**
-*\author Nicolas BOUYSSOUNOUSE
+*\author Nicolas
 *\checker Romain VINCENT
 *\brief Vérifie si l'utilisateur est connecté
 *\return boolean
@@ -27,8 +27,8 @@ function isConnected(){
 
 
 /**
-*\author Thomas BERARD
-*\checker Théo GUIBOUD-RIBAUD
+*\author Thomas
+*\checker Théo
 *\brief Génération du haut de la page HTML
 *\return string
 */
@@ -51,8 +51,8 @@ function hautPage () {
 
 
 /**
-*\author Thomas BERARD
-*\checker Théo GUIBOUD-RIBAUD
+*\author Thomas
+*\checker Théo
 *\brief Génération du bas de la page HTML
 *\return string
 */
@@ -63,8 +63,8 @@ function basPage () {
 
 
 /**
-*\author Thomas BERARD.
-*\checker Théo GUIBOUD-RIBAUD.
+*\author Thomas
+*\checker Théo
 *\brief Affiche la barre de navigation en tête de page.
 *\return string
 */
@@ -87,7 +87,7 @@ function afficheMenu () {
 
 
 /**
-*\author Thomas BERARD
+*\author Thomas
 *\checker Jérôme FABBIAN
 *\brief Affiche le footer en bas de page
 *\return string
@@ -108,7 +108,7 @@ function afficheFooter () {
 
 
 /**
-*\author Florian GOJON
+*\author Florian
 *\checker Nathan
 *\brief Génére un tableau avec les id des 25 derniers messages
 *\return array
@@ -126,7 +126,7 @@ function listeMessages() {
 
 /**
 *\author Guillaume
-*\checker
+*\checker ?
 *\brief fonction qui génère le div « humeur du jour »
 *\return string
 * Information supplémentaire
@@ -146,9 +146,9 @@ function affichehumeur(){
 
 
 /**
+*\author Valentin
+*\checker ?
 *\brief Retourner un tableau chargé des infos de l'utilisateur
-*\author = Valentin
-*\checker = ?
 *\param = idUtilisateur entier
 *\return un tableau*/
 function getUtilisateur($idUtilisateur){
@@ -191,9 +191,9 @@ function getUtilisateur($idUtilisateur){
 
 
 /**
+*\author Valentin
+*\checker ?
 *\brief mettre les informations de l'utilisateur dans les $_SESSION
-*\author = Valentin
-*\checker = ?
 *\param = tableauUtilisateur tableau
 *\return rien*/
 function chargeUtilisateur($tableauUtilisateur){
@@ -205,9 +205,9 @@ function chargeUtilisateur($tableauUtilisateur){
 
 
 /**
+*\author Valentin
+*\checker ?
 *\brief Renvoie les informations de l'utilisateur (sa fiche)
-*\author = Valentin
-*\checker = ?
 *\param = rien
 *\return string*/
 function afficheUtilisateur($tableauUtilisateur){
@@ -220,9 +220,9 @@ function afficheUtilisateur($tableauUtilisateur){
 
 
 /**
+*\author Valentin
+*\checker ?
 *\brief Renvoie les informations de l'utilisateur sous la forme d'une mini fiche
-*\author = Valentin
-*\checker = ?
 *\param = idpersonne integer
 *\return string*/
 function afficheMiniUtilisateur($tableauUtilisateur){
@@ -231,9 +231,9 @@ function afficheMiniUtilisateur($tableauUtilisateur){
 
 
 /**
+*\author Valentin
+*\checker ?
 *\brief Renvoie une chaine html permettant d'afficher le trombinoscope d'un groupe d'utilisateurs
-*\author = Valentin
-*\checker = ?
 *\param = idGroupe
 *\return string*/
 function afficheTrombinoscope($idGroupe){
@@ -268,7 +268,7 @@ function afficheTrombinoscope($idGroupe){
 
 /**
 *\author Adrien
-*\checker
+*\checker ?
 *\brief Fonction affichage d'un post avec partie user, mise en page & toolbar
 *\param \a $idPost/
 *\return string
@@ -369,8 +369,8 @@ function getBlog() {
 
 
 /**
-*\author Nicolas BOUYSSOUNOUSE
-*\checker
+*\author Nicolas
+*\checker ?
 *\brief renvoie le nombre maximum de MOTD dans la base de donnée
 *\return int
 * Information supplémentaire
@@ -392,8 +392,8 @@ function countMOTD(){
 
 
 /**
-*\author Nicolas BOUYSSOUNOUSE
-*\checker
+*\author Nicolas
+*\checker ?
 *\brief renvoie le code HTML qui affiche le MOTD
 *\param \a $alea/
 *\return string
@@ -431,8 +431,8 @@ function faitJour($alea){
 
 
 /**
-*\author Nicolas BOUYSSOUNOUSE
-*\checker
+*\author Nicolas
+*\checker ?
 *\brief renvoie le code HTML qui affiche le MOTD
 *\return string
 * Information supplémentaire
@@ -449,8 +449,8 @@ function afficheFaitJour(){
 
 
 /**
-*\author Nicolas BOUYSSOUNOUSE
-*\checker
+*\author Nicolas
+*\checker ?
 *\brief renvoie un aperçu de l'article de 300 char avec son code html
 *\return str
 *\param /a $id
@@ -477,7 +477,6 @@ function afficheMiniArticleWiki($id){
         die('Erreur : '.$e->getMessage());
     }
 
-
     $html.="<h4>".$resultat[1]."</h4>";
     $html.="<p>".$resultat[0]." [...]</p>";
     $html.="</div></a>";
@@ -485,3 +484,153 @@ function afficheMiniArticleWiki($id){
 }
 
 
+/**
+*\author Valentin
+*\checker ?
+*\brief Renvoie une chaine html qui permet d'afficher la liste des articles
+*\param integer valant le début de la requête
+*\return chaine html
+*informations supplémentaire : utilise la fonction afficheMiniArticleWiki()*/
+function afficheListeArticle($debut){
+	global $p_base;			//pour avoir accès à la la variable $p_base
+	$listeArticle = "<div><ul>";
+
+	try{
+		$p_requete = $p_base->query("SELECT id FROM wiki LIMIT ". $debut .",20");
+		while($donnees = $p_requete->fetch()){
+			$listeArticle .= "<li>". afficheMiniArticle($donnees['id']) ."</li>";
+		}
+
+		$p_requete->closeCursor(); 		// Termine le traitement de la requête
+	}
+	catch(Exception $e){
+	// En cas d'erreur précédemment, on affiche un message et on arrête tout
+		die('Erreur : '.$e->getMessage());
+	}
+
+	$listeArticle .= "</ul></div>";
+	return $listeArticle;
+}
+
+
+/**
+*\author Valentin
+*\checker ?
+*\brief return une chaine html qui permet d'afficher la liste des articles ainsi que les liens de navigation
+*\param rien
+*\return chaine html
+*\informations supplémentaire :  utilise les fonctions afficheListeArticleWiki() et navigation()*/
+function setupNavigationListeArticle(){
+	global $p_base;
+
+	if (isset($_GET['page'])) {			//si 'page' vaut quelque chose (--> si on a page=quelque chose)
+		$pageCourante = $_GET['page'];	//pageCourante prend la valeur de page="?"
+	}
+	else {
+		$pageCourante = 1;				//sinon la variable prend la valeur 1 (page 1)
+	}
+
+	if($pageCourante < 1) {				//pour ne pas pouvoir écrire un numéro de page négatif dans l'url, on revient à la première page
+		$pageCourante = 1;
+	}
+
+	$debut = 20 * ($pageCourante - 1);
+
+
+    try{
+        $reponse = $p_base->query("SELECT count(*) AS compteur FROM wiki");		//on compte le nombre d'articles dans le wiki
+        $donnees = $reponse->fetch();
+        $taille = $donnees['compteur'];
+    }
+    catch(Exception $e){
+        // En cas d'erreur, on affiche un message et on arrête tout
+        die('Erreur : '.$e->getMessage());
+    }
+
+	$dernierePage = floor($taille / 20);
+
+	if((($pageCourante - 1) * 20) > $taille){		//si on tape dans l'url un num de page supérieur à la dernière page
+		header('Location: index.php');		//on redirige vers la première page de listeville.php
+	}
+
+	$retour = navigation($pageCourante, $dernierePage);	//les boutons page suivante et page précédente
+	$retour .= afficheListeArticle($debut);		//la liste des articles
+	$retour .= navigation($pageCourante, $dernierePage);	//les boutons page suivante et page précédente
+
+	return $retour;
+}
+
+
+/**
+*\author Valentin
+*\checker ?
+*\brief Renvoie une chaine html qui permet d'afficher les liens de navigation
+*\param 2 integer
+*\return chaine html
+*informations complémentaires : pour les param-->integer valant le $_GET['page'] et integer valant le numéro de la dernière page des articles wiki*/
+function navigation($pageCourante, $dernierePage){
+	if($dernierePage <= 1){			//si il n'y a qu'une page
+		return '';						//on return rien
+	}
+	elseif($pageCourante <= 1){				//si on est en page 1 ou moins, on affiche un seul lien (suivant)
+		return '<ul>
+					<li><a href="'.basename($_SERVER['PHP_SELF']).'?page='.($pageCourante + 1).'">Page suivante</a></li>
+				</ul>';
+	}
+	elseif($pageCourante > $dernierePage){		//si on est à la dernière page ou plus, on n'affiche pas le lien page suivante
+		return '<ul>
+					<li><a href="'.basename($_SERVER['PHP_SELF']).'?page='.($pageCourante - 1).'">Page précédente</a></li>
+				</ul>';
+		
+	}
+	else{								//si on n'est pas en page 1 ou plus mais moins que la dernière page, on affiche les 2 liens
+		return '<ul>
+					<li><a href="'.basename($_SERVER['PHP_SELF']).'?page='.($pageCourante - 1).'">Page précédente</a></li>
+					<li><a href="'.basename($_SERVER['PHP_SELF']).'?page='.($pageCourante + 1).'">Page suivante</a></li>
+				</ul>';
+	}
+}
+
+
+/**
+*\author Valentin
+*\checker ?
+*\brief Renvoie l'id de l'article le plus vu du wiki
+*\param rien
+*\return id*/
+function getMostViewedArticle(){
+	global $p_base;			//pour avoir accès à la la variable $p_base
+	try{
+		$p_requete = $p_base->query("SELECT id, visites FROM wiki ORDER BY 2 DESC LIMIT 0,1");
+		$donnees = $p_requete->fetch();
+		return $donnees['id'];
+		$p_requete->closeCursor(); 		// Termine le traitement de la requête
+	}
+	catch(Exception $e){
+	// En cas d'erreur précédemment, on affiche un message et on arrête tout
+		die('Erreur : '.$e->getMessage());
+	}
+}
+
+
+/**
+*\author Valentin
+*\checker ?
+*\brief Renvoie une chaine html qui permet d'afficher l'article
+*\param id de l'article
+*\return chaine html*/
+function afficheArticle($idArticle){
+	global $p_base;			//pour avoir accès à la la variable $p_base
+	try{
+		$p_requete = $p_base->query("SELECT wiki.label AS label, wiki.contenu AS contenu, wiki.datecrea AS dateCreation, wiki.visites AS visites, personne.pseudo AS pseudo FROM wiki, personne WHERE wiki.id = " . $idArticle . " and wiki.idpersonne = personne.id");
+		$donnees = $p_requete->fetch();
+
+		return'<div><p>'. $donnees['label'] .'</p><p>'. $donnees['pseudo'] .'</p><p>'. $donnees['dateCreation'] .'</p><p>'. $donnees['contenu'] .'</p><p>'. $donnees['visites'] .' vues</p></div>';
+
+		$p_requete->closeCursor(); 		// Termine le traitement de la requête
+	}
+	catch(Exception $e){
+	// En cas d'erreur précédemment, on affiche un message et on arrête tout
+		die('Erreur : '.$e->getMessage());
+	}
+}
