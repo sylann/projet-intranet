@@ -1,4 +1,3 @@
-<?php
 /**
 * Message de Sylann :
 *
@@ -14,7 +13,7 @@
 
 
 /**
-*\author Nicolas BOUYSSOUNOUSE
+*\author Nicolas
 *\checker Romain VINCENT
 *\brief Vérifie si l'utilisateur est connecté
 *\return boolean
@@ -27,8 +26,8 @@ function isConnected(){
 
 
 /**
-*\author Thomas BERARD
-*\checker Théo GUIBOUD-RIBAUD
+*\author Thomas
+*\checker Théo
 *\brief Génération du haut de la page HTML
 *\return string
 */
@@ -51,8 +50,8 @@ function hautPage () {
 
 
 /**
-*\author Thomas BERARD
-*\checker Théo GUIBOUD-RIBAUD
+*\author Thomas
+*\checker Théo
 *\brief Génération du bas de la page HTML
 *\return string
 */
@@ -63,8 +62,8 @@ function basPage () {
 
 
 /**
-*\author Thomas BERARD.
-*\checker Théo GUIBOUD-RIBAUD.
+*\author Thomas
+*\checker Théo
 *\brief Affiche la barre de navigation en tête de page.
 *\return string
 */
@@ -87,7 +86,7 @@ function afficheMenu () {
 
 
 /**
-*\author Thomas BERARD
+*\author Thomas
 *\checker Jérôme FABBIAN
 *\brief Affiche le footer en bas de page
 *\return string
@@ -108,7 +107,7 @@ function afficheFooter () {
 
 
 /**
-*\author Florian GOJON
+*\author Florian
 *\checker Nathan
 *\brief Génére un tableau avec les id des 25 derniers messages
 *\return array
@@ -126,7 +125,7 @@ function listeMessages() {
 
 /**
 *\author Guillaume
-*\checker
+*\checker ?
 *\brief fonction qui génère le div « humeur du jour »
 *\return string
 * Information supplémentaire
@@ -146,9 +145,9 @@ function affichehumeur(){
 
 
 /**
+*\author Valentin
+*\checker ?
 *\brief Retourner un tableau chargé des infos de l'utilisateur
-*\author = Valentin
-*\checker = ?
 *\param = idUtilisateur entier
 *\return un tableau*/
 function getUtilisateur($idUtilisateur){
@@ -191,9 +190,9 @@ function getUtilisateur($idUtilisateur){
 
 
 /**
+*\author Valentin
+*\checker ?
 *\brief mettre les informations de l'utilisateur dans les $_SESSION
-*\author = Valentin
-*\checker = ?
 *\param = tableauUtilisateur tableau
 *\return rien*/
 function chargeUtilisateur($tableauUtilisateur){
@@ -205,9 +204,9 @@ function chargeUtilisateur($tableauUtilisateur){
 
 
 /**
+*\author Valentin
+*\checker ?
 *\brief Renvoie les informations de l'utilisateur (sa fiche)
-*\author = Valentin
-*\checker = ?
 *\param = rien
 *\return string*/
 function afficheUtilisateur($tableauUtilisateur){
@@ -220,9 +219,9 @@ function afficheUtilisateur($tableauUtilisateur){
 
 
 /**
+*\author Valentin
+*\checker ?
 *\brief Renvoie les informations de l'utilisateur sous la forme d'une mini fiche
-*\author = Valentin
-*\checker = ?
 *\param = idpersonne integer
 *\return string*/
 function afficheMiniUtilisateur($tableauUtilisateur){
@@ -231,9 +230,9 @@ function afficheMiniUtilisateur($tableauUtilisateur){
 
 
 /**
+*\author Valentin
+*\checker ?
 *\brief Renvoie une chaine html permettant d'afficher le trombinoscope d'un groupe d'utilisateurs
-*\author = Valentin
-*\checker = ?
 *\param = idGroupe
 *\return string*/
 function afficheTrombinoscope($idGroupe){
@@ -268,7 +267,7 @@ function afficheTrombinoscope($idGroupe){
 
 /**
 *\author Adrien
-*\checker
+*\checker ?
 *\brief Fonction affichage d'un post avec partie user, mise en page & toolbar
 *\param \a $idPost/
 *\return string
@@ -369,8 +368,8 @@ function getBlog() {
 
 
 /**
-*\author Nicolas BOUYSSOUNOUSE
-*\checker
+*\author Nicolas
+*\checker ?
 *\brief renvoie le nombre maximum de MOTD dans la base de donnée
 *\return int
 * Information supplémentaire
@@ -392,8 +391,8 @@ function countMOTD(){
 
 
 /**
-*\author Nicolas BOUYSSOUNOUSE
-*\checker
+*\author Nicolas
+*\checker ?
 *\brief renvoie le code HTML qui affiche le MOTD
 *\param \a $alea/
 *\return string
@@ -431,8 +430,8 @@ function faitJour($alea){
 
 
 /**
-*\author Nicolas BOUYSSOUNOUSE
-*\checker
+*\author Nicolas
+*\checker ?
 *\brief renvoie le code HTML qui affiche le MOTD
 *\return string
 * Information supplémentaire
@@ -448,34 +447,8 @@ function afficheFaitJour(){
 
 
 /**
-*\author Adrien
-*\checker 
-*\brief Fonction retourne l'id du dernier article
-*\return id article
-* Informations supplémentaires
-* Nombre d'article à ramener actuellement = 1
-* Return l'Id d'un article, cet article est choisi par requête SQL, cette dernière est un select dans les articles où la date de création de l'article est la plus récente (order by date desc	et on prend le premier).
-* Rangement des résultats dans le tableau 'tableDernierArticle'
-*/
-function getDernierArticle() {
-	global $p_base;
-	try {
-		$requete = $p_base->query(' select id, datecrea from wiki order by datecrea DESC limit 1 ');
-		$tableDernierArticle = array();
-		while($resultat = $requete->fetch()) {
-			$tableDernierArticle[] = $resultat['id'];
-		}
-	}
-	catch(Exception $e){
-		die ('Erreur : '.$e->getMessage());
-	}
-	return $tableDernierArticle;
-}
-
-
-/**
-*\author Nicolas BOUYSSOUNOUSE
-*\checker
+*\author Nicolas
+*\checker ?
 *\brief renvoie un aperçu de l'article de 300 char avec son code html
 *\return str
 *\param /a $id
@@ -502,7 +475,6 @@ function afficheMiniArticleWiki($id){
         die('Erreur : '.$e->getMessage());
     }
 
-
     $html.="<h4>".$resultat[1]."</h4>";
     $html.="<p>".$resultat[0]." [...]</p>";
     $html.="</div></a>";
@@ -511,14 +483,38 @@ function afficheMiniArticleWiki($id){
 
 
 /**
-*\author Nicolas BOUYSSOUNOUSE
-*\checker
+*\author Adrien
+*\checker ?
+*\brief Fonction retourne l'id du dernier article
+*\return id article
+* Informations supplémentaires
+* Nombre d'article à ramener actuellement = 1
+* Return l'Id d'un article, cet article est choisi par requête SQL, cette dernière est un select dans les articles où la date de création de l'article est la plus récente (order by date desc	et on prend le premier).
+* Rangement des résultats dans le tableau 'tableDernierArticle'
+*/
+function getDernierArticle() {
+	global $p_base;
+	try {
+		$requete = $p_base->query(' select id, datecrea from wiki order by datecrea DESC limit 1 ');
+		$tableDernierArticle = array();
+		while($resultat = $requete->fetch()) {
+			$tableDernierArticle[] = $resultat['id'];
+		}
+	}
+	catch(Exception $e){
+		die ('Erreur : '.$e->getMessage());
+	}
+	return $tableDernierArticle;
+}
+
+/**
+*\author Nicolas
+*\checker ?
 *\brief change $_SESSION['arborescence'] en le nom du repertoir mis en argument.
 *\return boolval
 *\param /a $pathRequest
 */
 function setArborescence($pathRequest){
-
 
     if (chdir($pathRequest)) {
         $_SESSION['arborescence']=getcwd();
@@ -526,8 +522,7 @@ function setArborescence($pathRequest){
     else {
         return false;
     }
-
-
-
 }
+
+
 ?>
