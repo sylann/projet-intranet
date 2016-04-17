@@ -472,4 +472,62 @@ function getDernierArticle() {
 	return $tableDernierArticle;
 }
 
+
+/**
+*\author Nicolas BOUYSSOUNOUSE
+*\checker
+*\brief renvoie un aperçu de l'article de 300 char avec son code html
+*\return str
+*\param /a $id
+* Information supplémentaire
+* Requète SQL sur contenu & label de la table wiki
+* code html :
+* <a>
+* <h4> titre </h4>
+* <p> article blablabla </p>
+* </a>
+* La classe CSS utilisé est "miniArticle"
+*/
+function afficheMiniArticleWiki($id){
+    $html='<a href="http://example.com" class="miniArticle"><div>';
+    global $p_base;
+    try{
+        $reponse = $p_base->query("SELECT CAST(contenu AS CHAR(300)), label
+        FROM wiki
+        where id = ".$id);
+        $resultat = $reponse->fetch();
+    }
+    catch(Exception $e){
+        // En cas d'erreur, on affiche un message et on arrête tout
+        die('Erreur : '.$e->getMessage());
+    }
+
+
+    $html.="<h4>".$resultat[1]."</h4>";
+    $html.="<p>".$resultat[0]." [...]</p>";
+    $html.="</div></a>";
+    return $html;
+}
+
+
+/**
+*\author Nicolas BOUYSSOUNOUSE
+*\checker
+*\brief change $_SESSION['arborescence'] en le nom du repertoir mis en argument.
+*\return boolval
+*\param /a $pathRequest
+*/
+function setArborescence($pathRequest){
+
+
+    if (chdir($pathRequest)) {
+        $_SESSION['arborescence']=getcwd();
+    }
+    else {
+        return false;
+    }
+
+
+
+}
 ?>
