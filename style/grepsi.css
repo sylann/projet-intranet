@@ -1,11 +1,21 @@
+body {
+  background: url('../images/background.png') repeat;
+}
+
+html, body {
+  height: 100%;
+}
+
 #cssmenu {
-  background: #F0800E;
+  background: url('../images/red-sand.jpg') repeat;
+  background-size: 100%;
   width: 100%;
   list-style: none;
   margin: auto;
   text-align: center;
   top: 0px;
   left: 0px;
+  height: 50px;
 }
 
 #cssmenu ul {
@@ -144,16 +154,24 @@
 
 }
 
+.wrapper {
+   min-height: 100%;
+   height: auto !important;
+   height: 100%;
+   margin: 0 auto -115px;
+}
+
 .footer-distributed{
-  background-color: #2D2A29;
+  background: url('../images/footer.png') repeat;
   box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
   box-sizing: border-box;
   width: 100%;
   text-align: left;
   font: normal 16px Verdana;
+  height: 115px;
 
   padding: 20px 50px;
-  margin-top: 80px;
+  margin-top: 0px;
 }
 /*
 .icon-social{
