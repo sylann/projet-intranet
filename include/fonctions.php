@@ -464,7 +464,7 @@ function afficheFaitJour(){
 
 /**
 *\author Nicolas
-*\checker ?
+*\checker Florian
 *\brief renvoie un aperçu de l'article de 300 char avec son code html
 *\return str
 *\param /a $id
@@ -477,7 +477,7 @@ function afficheFaitJour(){
 * </a>
 * La classe CSS utilisé est "miniArticle"
 */
-function afficheMiniArticleWiki($id){
+function afficheMiniArticle($id){
     $html='<a href="http://example.com" class="miniArticle"><div>';
     global $p_base;
     try{
@@ -543,7 +543,7 @@ function setArborescence($pathRequest){
 
 /**
 *\author Valentin
-*\checker ?
+*\checker Florian
 *\brief Renvoie une chaine html qui permet d'afficher la liste des articles
 *\param integer valant le début de la requête
 *\return chaine html
@@ -572,11 +572,11 @@ function afficheListeArticle($debut){
 
 /**
 *\author Valentin
-*\checker ?
+*\checker Florian
 *\brief return une chaine html qui permet d'afficher la liste des articles ainsi que les liens de navigation
 *\param rien
 *\return chaine html
-*\informations supplémentaire :  utilise les fonctions afficheListeArticleWiki() et navigation()*/
+*\informations supplémentaire :  utilise les fonctions afficheListeArticle() et navigation()*/
 function setupNavigationListeArticle(){
 	global $p_base;
 
@@ -604,7 +604,7 @@ function setupNavigationListeArticle(){
         die('Erreur : '.$e->getMessage());
     }
 
-	$dernierePage = floor($taille / 20);
+	$dernierePage = ceil($taille / 20);
 
 	if((($pageCourante - 1) * 20) > $taille){		//si on tape dans l'url un num de page supérieur à la dernière page
 		header('Location: index.php');		//on redirige vers la première page de listeville.php
@@ -620,7 +620,7 @@ function setupNavigationListeArticle(){
 
 /**
 *\author Valentin
-*\checker ?
+*\checker Florian
 *\brief Renvoie une chaine html qui permet d'afficher les liens de navigation
 *\param 2 integer
 *\return chaine html
@@ -631,10 +631,10 @@ function navigation($pageCourante, $dernierePage){
 	}
 	elseif($pageCourante <= 1){				//si on est en page 1 ou moins, on affiche un seul lien (suivant)
 		return '<ul>
-					<li><a href="'.basename($_SERVER['PHP_SELF']).'?page='.($pageCourante + 1).'">Page suivante</a></li>
-				</ul>';
+			<li><a href="'.basename($_SERVER['PHP_SELF']).'?page='.($pageCourante + 1).'">Page suivante</a></li>
+		</ul>';
 	}
-	elseif($pageCourante > $dernierePage){		//si on est à la dernière page ou plus, on n'affiche pas le lien page suivante
+	elseif($pageCourante == $dernierePage){		//si on est à la dernière page ou plus, on n'affiche pas le lien page suivante
 		return '<ul>
 					<li><a href="'.basename($_SERVER['PHP_SELF']).'?page='.($pageCourante - 1).'">Page précédente</a></li>
 				</ul>';
@@ -642,9 +642,9 @@ function navigation($pageCourante, $dernierePage){
 	}
 	else{								//si on n'est pas en page 1 ou plus mais moins que la dernière page, on affiche les 2 liens
 		return '<ul>
-					<li><a href="'.basename($_SERVER['PHP_SELF']).'?page='.($pageCourante - 1).'">Page précédente</a></li>
-					<li><a href="'.basename($_SERVER['PHP_SELF']).'?page='.($pageCourante + 1).'">Page suivante</a></li>
-				</ul>';
+			<li><a href="'.basename($_SERVER['PHP_SELF']).'?page='.($pageCourante - 1).'">Page précédente</a></li>
+			<li><a href="'.basename($_SERVER['PHP_SELF']).'?page='.($pageCourante + 1).'">Page suivante</a></li>
+		</ul>';
 	}
 }
 
@@ -734,6 +734,14 @@ function afficheEcritureArticle(){
 			<input type="submit" name="submit" value="Sauvegarder">
 		</form>
 		';
+}
+
+
+function afficheChat() {
+	return '<form method="post>
+		<input type="text" name="message" autofocus="autofocus" placeholder="Votre message">
+		<input type="submit" name="submit" value="Poster" />
+	</form>';
 }
 
 ?>
