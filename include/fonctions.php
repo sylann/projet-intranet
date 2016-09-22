@@ -27,7 +27,7 @@ function isConnected(){
 
 
 /**
-*\author Thomas
+*\author Thomas BERARD
 *\checker Théo
 *\brief Génération du haut de la page HTML
 *\return string
@@ -51,7 +51,7 @@ function hautPage () {
 
 
 /**
-*\author Thomas
+*\author Thomas BERARD
 *\checker Théo
 *\brief Génération du bas de la page HTML
 *\return string
@@ -63,7 +63,7 @@ function basPage () {
 
 
 /**
-*\author Thomas
+*\author Thomas BERARD
 *\checker Théo
 *\brief Affiche la barre de navigation en tête de page.
 *\return string
@@ -87,7 +87,7 @@ function afficheMenu () {
 
 
 /**
-*\author Thomas
+*\author Thomas BERARD
 *\checker Jérôme FABBIAN
 *\brief Affiche le footer en bas de page
 *\return string
@@ -197,7 +197,7 @@ function getUtilisateur($idUtilisateur){
 *\param = tableauUtilisateur tableau
 *\return rien*/
 function chargeUtilisateur($tableauUtilisateur){
-	
+
 	foreach($tableauUtilisateur as $key => $value){		//pour chaque valeur dans le tableau
 		$_SESSION[$key] = $value;						//on assigne une valeur à cette variable de session
 	}
@@ -623,7 +623,7 @@ function navigation($pageCourante, $dernierePage){
 		return '<ul>
 					<li><a href="'.basename($_SERVER['PHP_SELF']).'?page='.($pageCourante - 1).'">Page précédente</a></li>
 				</ul>';
-		
+
 	}
 	else{								//si on n'est pas en page 1 ou plus mais moins que la dernière page, on affiche les 2 liens
 		return '<ul>
