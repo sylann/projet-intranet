@@ -27,4 +27,3 @@ C'est à dire "SylannBin / projet-intranet".
 
 ### Comment Push ?
 C'est simple, d'accord on PULL et après on PUSH !
-Niquez vos races !
