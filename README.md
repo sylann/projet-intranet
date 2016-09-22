@@ -10,9 +10,9 @@ Ce texte est contenu dans le fichier README.md, présent à la racine, il s'agit
 
 ### Installer GitHub Desktop
 Pour utiliser ce hub dans les meilleurs conditions, il faudra posséder un compte (gratuit) sur GitHub.
-Et je conseille de télécharger GitHub Desktop (client local). 
+Et je conseille de télécharger GitHub Desktop (client local).
 Il permet de télécharger et tester simplement, le contenu d'un projet (celà répond à la question de Hugues).
-Pour le télécharger : 
+Pour le télécharger :
 > (PC) https://github-windows.s3.amazonaws.com/GitHubSetup.exe
 
 > (MAC) https://central.github.com/mac/latest
@@ -25,4 +25,5 @@ C'est à dire "SylannBin / projet-intranet".
 > Bonne recherche !
 
 
-
+### Comment Push ?
+C'est simple, d'accord on PULL et après on PUSH !
