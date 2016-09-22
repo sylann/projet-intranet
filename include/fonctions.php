@@ -46,6 +46,7 @@ function hautPage () {
 	<link rel="stylesheet" type="text/css" href="style/grepsi.css">
 	</head>
 	<body>
+	<div class="wrapper">
 	';
 }
 
@@ -93,7 +94,8 @@ function afficheMenu () {
 *\return string
 */
 function afficheFooter () {
-	return '<footer class="footer-distributed">
+	return '</div>
+	<footer class="footer-distributed">
 		<div class="footer-right">
 			<a href="https://www.facebook.com/Campus.EPSI.Grenoble" target="_blank"><img class="icon-social-shrink" src="images/facebook-logo.png" alt="Facebook EPSI Grenoble"></a>
 			<a href="https://twitter.com/EPSIGrenoble" target="_blank"><img class="icon-social-shrink" src="images/twitter-logo.png" alt="Twitter EPSI Grenoble"></a>
