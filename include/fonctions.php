@@ -148,58 +148,44 @@ function affichehumeur(){
 /**
 *\author Valentin
 *\checker ?
-*\brief Retourner un tableau chargé des infos de l'utilisateur
+*\brief charge les informations de l'utilisateur connecté dans les variables de session
+*\on appelle cette foncion depuis la fonction de connexion de l'utilisateur
 *\param = idUtilisateur entier
-*\return un tableau*/
-function getUtilisateur($idUtilisateur){
+*\return rien*/
+function chargeUtilisateur($idUtilisateur){
 	global $p_base;			//pour avoir accès à la la variable $p_base
 	try{
 		$p_requete = $p_base->prepare("SELECT * FROM personne WHERE id = :idUtilisateur");		//requête SQL nous donnant toutes les informations d'un utilisateur
 		$p_requete->execute(array('idUtilisateur'=> $idUtilisateur));
 		$donnees = $p_requete->fetch();
 
-		$tableauUtilisateur["id"] = $donnees['id'];
-		$tableauUtilisateur["mail"] = $donnees['mail'];					//on met toutes les informations de la table dans le tableau
-		$tableauUtilisateur["password"] = $donnees['password'];
-		$tableauUtilisateur["nom"] = $donnees['nom'];
-		$tableauUtilisateur["prenom"] = $donnees['prenom'];
-		$tableauUtilisateur["statut"] = $donnees['statut'];
-		$tableauUtilisateur["pseudo"] = $donnees['pseudo'];
-		$tableauUtilisateur["datenaiss"] = $donnees['datenaiss'];
-		$tableauUtilisateur["tel"] = $donnees['tel'];
-		$tableauUtilisateur["telpublic"] = $donnees['telpublic'];
-		$tableauUtilisateur["photo"] = $donnees['photo'];
-		$tableauUtilisateur["avatar"] = $donnees['avatar'];
-		$tableauUtilisateur["cv"] = $donnees['cv'];
-		$tableauUtilisateur["cvpublic"] = $donnees['cvpublic'];
-		$tableauUtilisateur["devise"] = $donnees['devise'];
-		$tableauUtilisateur["signature"] = $donnees['signature'];
-		$tableauUtilisateur["acceptmails"] = $donnees['acceptmails'];
-		$tableauUtilisateur["nbpost"] = $donnees['nbpost'];
-		$tableauUtilisateur["nblikes"] = $donnees['nblikes'];
-		$tableauUtilisateur["nbarticles"] = $donnees['nbarticles'];
-		$tableauUtilisateur["nbcontribution"] = $donnees['nbcontribution'];
+		$_SESSION["id"] = $donnees['id'];
+		$_SESSION["mail"] = $donnees['mail'];					//on met toutes les informations de la table dans les variables de session
+		$_SESSION["password"] = $donnees['password'];
+		$_SESSION["nom"] = $donnees['nom'];
+		$_SESSION["prenom"] = $donnees['prenom'];
+		$_SESSION["statut"] = $donnees['statut'];
+		$_SESSION["pseudo"] = $donnees['pseudo'];
+		$_SESSION["datenaiss"] = $donnees['datenaiss'];
+		$_SESSION["tel"] = $donnees['tel'];
+		$_SESSION["telpublic"] = $donnees['telpublic'];
+		$_SESSION["photo"] = $donnees['photo'];
+		$_SESSION["avatar"] = $donnees['avatar'];
+		$_SESSION["cv"] = $donnees['cv'];
+		$_SESSION["cvpublic"] = $donnees['cvpublic'];
+		$_SESSION["devise"] = $donnees['devise'];
+		$_SESSION["signature"] = $donnees['signature'];
+		$_SESSION["acceptmails"] = $donnees['acceptmails'];
+		$_SESSION["nbpost"] = $donnees['nbpost'];
+		$_SESSION["nblikes"] = $donnees['nblikes'];
+		$_SESSION["nbarticles"] = $donnees['nbarticles'];
+		$_SESSION["nbcontribution"] = $donnees['nbcontribution'];
 
 		$p_requete->closeCursor(); 		// Termine le traitement de la requête
 	}
 	catch(Exception $e){
 	// En cas d'erreur précédemment, on affiche un message et on arrête tout
 		die('Erreur : '.$e->getMessage());
-	}
-	return $tableauUtilisateur;		//on retourne le tableau
-}
-
-
-/**
-*\author Valentin
-*\checker ?
-*\brief mettre les informations de l'utilisateur dans les $_SESSION
-*\param = tableauUtilisateur tableau
-*\return rien*/
-function chargeUtilisateur($tableauUtilisateur){
-
-	foreach($tableauUtilisateur as $key => $value){		//pour chaque valeur dans le tableau
-		$_SESSION[$key] = $value;						//on assigne une valeur à cette variable de session
 	}
 }
 
@@ -208,14 +194,24 @@ function chargeUtilisateur($tableauUtilisateur){
 *\author Valentin
 *\checker ?
 *\brief Renvoie les informations de l'utilisateur (sa fiche)
-*\param = rien
+*\param = idpersonne integer
 *\return string*/
-function afficheUtilisateur($tableauUtilisateur){
-	$chaine = "";
-	foreach($tableauUtilisateur as $key => $value){				//pour chaque valeur dans le tableau
-		$chaine .= '<p>-- ' . $key . ' : ' . $value . '</p>';	//on fait des paragraphes avec ce qu'est la variable et sa valeur
-	};
-	return'<div>' . $chaine . '</div>';						//on return la chaine
+function afficheUtilisateur($idpersonne){
+	global $p_base;			//pour avoir accès à la la variable $p_base
+
+	try{
+		$p_requete = $p_base->prepare("SELECT * FROM personne WHERE id = :idUtilisateur");		//requête SQL nous donnant toutes les informations d'un utilisateur
+		$p_requete->execute(array('idUtilisateur'=> $idUtilisateur));
+		$donnees = $p_requete->fetch();
+
+		return '<div class="container-profil"><h3>'.$donnees['nom'].' '.$donnees['prenom'].'</h3><p>'.$donnees['psuedo'].'</p></div>';
+
+		$p_requete->closeCursor(); 		// Termine le traitement de la requête
+	}
+	catch(Exception $e){
+	// En cas d'erreur précédemment, on affiche un message et on arrête tout
+		die('Erreur : '.$e->getMessage());
+	}
 }
 
 
@@ -223,10 +219,27 @@ function afficheUtilisateur($tableauUtilisateur){
 *\author Valentin
 *\checker ?
 *\brief Renvoie les informations de l'utilisateur sous la forme d'une mini fiche
+*\la fiche est cliquable pour accèder à la page complète de l'utilisateur
 *\param = idpersonne integer
 *\return string*/
-function afficheMiniUtilisateur($tableauUtilisateur){
-	return'<a href="personne.php?id=' . $tableauUtilisateur['id'] . '"><img src="' . $tableauUtilisateur['photo'] . '" title="Nom : ' . $tableauUtilisateur['nom'] . '   Prenom : ' . $tableauUtilisateur['prenom'] .'"></a>';
+function afficheMiniUtilisateur($idpersonne){
+	global $p_base;			//pour avoir accès à la la variable $p_base
+
+	try{
+		$p_requete = $p_base->prepare("SELECT id, nom, prenom, photo FROM personne WHERE id = :idUtilisateur");		//requête SQL nous donnant toutes les informations d'un utilisateur
+		$p_requete->execute(array('idUtilisateur'=> $idUtilisateur));
+		$donnees = $p_requete->fetch();
+
+		return'<a href="personne.php?id=' . $donnees['id'] . '">
+			<img src="' . $donnees['photo'] . '" title="Nom : ' . $donnees['nom'] . '   Prenom : ' . $donnees['prenom'] .'">
+		</a>';
+
+		$p_requete->closeCursor(); 		// Termine le traitement de la requête
+	}
+	catch(Exception $e){
+	// En cas d'erreur précédemment, on affiche un message et on arrête tout
+		die('Erreur : '.$e->getMessage());
+	}
 }
 
 
@@ -675,6 +688,50 @@ function afficheArticle($idArticle){
 	// En cas d'erreur précédemment, on affiche un message et on arrête tout
 		die('Erreur : '.$e->getMessage());
 	}
+}
+
+
+function afficheGroupes(){
+	global $p_base;			//pour avoir accès à la la variable $p_base
+	$groupes = '<div class="container-all-groups">';
+
+	try{
+		$p_requete = $p_base->query("SELECT * FROM groupe");
+		while($donnees = $p_requete->fetch()){
+			$groupes .= '<a href="tombinoscope.php?groupe='.$donnees['id'].'"
+			<div class="container-group" style="background:(url:"'.$donnees['logo'].'");">
+				<h3>'.$donnees['label'].'</h3>
+				<p>'.$donnees['devise'].'</p>
+			</div></a>';
+		}
+
+		$p_requete->closeCursor(); 		// Termine le traitement de la requête
+	}
+	catch(Exception $e){
+	// En cas d'erreur précédemment, on affiche un message et on arrête tout
+		die('Erreur : '.$e->getMessage());
+	}
+
+	$groupes .= "</div>";
+	return $groupes;
+}
+
+
+/**
+*\author Théo
+*\checker ?
+*\brief Affiche un écran d'écriture d'articles
+*\return string*/
+function afficheEcritureArticle(){
+	if(isset($_POST['submit'])) {
+		ajouteArticles();
+	}
+	return '<form method="post">
+			<input type="text" name="titre" placeholder="Titre">
+			<textarea name="message" autofocus="autofocus" class="zonetext"></textarea>
+			<input type="submit" name="submit" value="Sauvegarder">
+		</form>
+		';
 }
 
 ?>
