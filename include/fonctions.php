@@ -282,8 +282,8 @@ function afficheTrombinoscope($idGroupe){
 */
 function affichePost ($idPost) {
 	try {
-		$p_requete = $p_base->query('Select date, contenu, idpersonne, signature, post.id, avatar, pseudo from post, personne, devise where post.id = '.$idPost' and idpersonne = personne.id');
-		$donnees = $requete->fetchall());
+		$p_requete = $p_base->query('Select date, contenu, idpersonne, signature, post.id, avatar, pseudo from post, personne, devise where post.id = '.$idPost.' and idpersonne = personne.id');
+		$donnees = $requete->fetchall();
 	}
 	catch(Exception $e){
 	die ('Erreur : '.$e->getMessage());
@@ -300,7 +300,7 @@ function affichePost ($idPost) {
 					</td>
 					<td class="post" valign="top">
 						<div class="toolbar">
-							Date du message : '.$donnees['date']'
+							Date du message : '.$donnees['date'].'
 						</div>
 						<div class="'.$idPost.'">
 							<p>'.$donnees['contenu'].'</p>

@@ -1,9 +1,9 @@
 <?php
+include('include/connexion.php');
 include('include/fonctions.php');
-	echo afficheHautPage ();  				// Apelle la fonction HautePage
+	echo hautPage ();  				// Apelle la fonction HautePage
 	echo afficheMenu ();      				// Apelle la fonction Menu
-	if (isConnecte) {		  				// Regarde si l'utilisateur est connecté
-		echo afficheChat ();  				// Si conecté affiche le chat grace à ça fonction
+	if (isConnected()) {		  				// Regarde si l'utilisateur est connecté
 		$tab = getLastBlog(5);				// Mets dans la variable tab les derniers blogs
 			foreach($tab as $post){			
 				echo affichePost($post);	// Apelle la fonction Post
