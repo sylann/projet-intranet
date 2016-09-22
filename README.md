@@ -23,3 +23,7 @@ Sinon, pour les curieux de nature, tout sera expliqué sur le wiki en temps voul
 Pour accéder au wiki, cliquer sur l'onglet "wiki", celui ci se trouve au milieu du menu de navigation, qui se trouve en dessous du titre du projet.
 C'est à dire "SylannBin / projet-intranet".
 > Bonne recherche !
+
+
+### Comment Push ?
+C'est simple, d'accord on PULL et après on PUSH !
