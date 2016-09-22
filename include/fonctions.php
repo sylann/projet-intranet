@@ -100,7 +100,7 @@ function afficheFooter () {
 		</div>
 
 		<div class="footer-left">
-			<a href="http://www.epsi.fr" target="_blank"><img class="epsi-logo" src="images/epsi-logo-footer.png" alt="Facebook EPSI Grenoble" width="120" border="0"></a>
+			<a href="http://www.epsi.fr" target="_blank"><img class="epsi-logo" src="images/epsi-logo.png" alt="Facebook EPSI Grenoble" width="120" border="0"></a>
 		</div>
 	</footer>
 	';
