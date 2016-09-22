@@ -111,24 +111,29 @@ function afficheFooter () {
 
 /**
 *\author Florian
-*\checker Nathan
+*\checker Adrien
 *\brief Génére un tableau avec les id des 25 derniers messages
 *\return array
 */
 function listeMessages() {
 	global $p_base;
-	$requete = $p_base->query('select id, date from tchat order by date asc limit 25');
-	$table = array();
-	while($resultat = $requete->fetch()) {
+	try{
+		$requete = $p_base->query('select id, date from tchat order by date asc limit 25');
+		$table = array();
+		while($resultat = $requete->fetch()) {
 		$table[] = $resultat['id'];
+		}
+		return $table;
 	}
-	return $table;
+	catch(Exception $e){
+		die ('Erreur : '.$e->getMessage());
+	}
 }
 
 
 /**
 *\author Guillaume
-*\checker ?
+*\checker Adrien
 *\brief fonction qui génère le div « humeur du jour »
 *\return string
 * Information supplémentaire
@@ -149,7 +154,7 @@ function affichehumeur(){
 
 /**
 *\author Valentin
-*\checker ?
+*\checker Adrien
 *\brief charge les informations de l'utilisateur connecté dans les variables de session
 *\on appelle cette foncion depuis la fonction de connexion de l'utilisateur
 *\param = idUtilisateur entier
@@ -194,11 +199,11 @@ function chargeUtilisateur($idUtilisateur){
 
 /**
 *\author Valentin
-*\checker ?
+*\checker Adrien
 *\brief Renvoie les informations de l'utilisateur (sa fiche)
-*\param = idpersonne integer
+*\param = idUtilisateur integer
 *\return string*/
-function afficheUtilisateur($idpersonne){
+function afficheUtilisateur($idUtilisateur){
 	global $p_base;			//pour avoir accès à la la variable $p_base
 
 	try{
@@ -206,7 +211,7 @@ function afficheUtilisateur($idpersonne){
 		$p_requete->execute(array('idUtilisateur'=> $idUtilisateur));
 		$donnees = $p_requete->fetch();
 
-		return '<div class="container-profil"><h3>'.$donnees['nom'].' '.$donnees['prenom'].'</h3><p>'.$donnees['psuedo'].'</p></div>';
+		return '<div class="container-profil"><h3>'.$donnees['nom'].' '.$donnees['prenom'].'</h3><p>'.$donnees['pseudo'].'</p></div>';
 
 		$p_requete->closeCursor(); 		// Termine le traitement de la requête
 	}
@@ -219,12 +224,12 @@ function afficheUtilisateur($idpersonne){
 
 /**
 *\author Valentin
-*\checker ?
+*\checker Adrien
 *\brief Renvoie les informations de l'utilisateur sous la forme d'une mini fiche
 *\la fiche est cliquable pour accèder à la page complète de l'utilisateur
-*\param = idpersonne integer
+*\param = idUtilisateur integer
 *\return string*/
-function afficheMiniUtilisateur($idpersonne){
+function afficheMiniUtilisateur($idUtilisateur){
 	global $p_base;			//pour avoir accès à la la variable $p_base
 
 	try{
@@ -247,7 +252,7 @@ function afficheMiniUtilisateur($idpersonne){
 
 /**
 *\author Valentin
-*\checker ?
+*\checker Adrien
 *\brief Renvoie une chaine html permettant d'afficher le trombinoscope d'un groupe d'utilisateurs
 *\param = idGroupe
 *\return string*/
