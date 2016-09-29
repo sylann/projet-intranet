@@ -6,6 +6,12 @@ html, body {
   height: 100%;
 }
 
+.boutonNewDir{
+	background : url("../images/bouton-new-dir.png");
+	height: 50px;
+	width: 50px;
+}
+
 #cssmenu {
   background: url('../images/red-sand.jpg') repeat;
   background-size: 100%;

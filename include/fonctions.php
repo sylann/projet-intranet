@@ -118,18 +118,23 @@ function afficheFooter () {
 function listeMessages() {
 	global $p_base;
 	try{
-		$requete = $p_base->query('select id, date from tchat order by date asc limit 25');
-		$table = array();
-		while($resultat = $requete->fetch()) {
-		$table[] = $resultat['id'];
+		$cpt = 0;
+		$p_requete = $p_base->query("SELECT id, date from tchat order by date asc limit 25");
+		while($resultat = $p_requete->fetch()) {
+			$table[$cpt] = $resultat['id'];
+			$cpt += 1;
 		}
+
 		return $table;
+
+		$p_requete->closeCursor(); 		// Termine le traitement de la requête
+
 	}
 	catch(Exception $e){
+	// En cas d'erreur précédemment, on affiche un message et on arrête tout
 		die ('Erreur : '.$e->getMessage());
 	}
 }
-
 
 /**
 *\author Guillaume
@@ -273,9 +278,11 @@ function afficheTrombinoscope($idGroupe){
 			$tableauReduit['photo'] = $donnees2['photo'];
 
 			$chaineTrombi .= afficheMiniUtilisateur($tableauReduit);
+
+			$p_requete2->closeCursor(); 		// Termine le traitement de la requête
 		}
 
-		$p_requete2->closeCursor(); 		// Termine le traitement de la requête
+		$p_requete->closeCursor(); 		// Termine le traitement de la requête
 	}
 	catch(Exception $e){
 	// En cas d'erreur précédemment, on affiche un message et on arrête tout
@@ -284,7 +291,6 @@ function afficheTrombinoscope($idGroupe){
 	$chaineTrombi .= "</div>";
 	return $chaineTrombi;
 }
-
 
 /**
 *\author Adrien
@@ -390,7 +396,7 @@ function getBlog() {
 
 /**
 *\author Nicolas
-*\checker ?
+*\checker Florian
 *\brief renvoie le nombre maximum de MOTD dans la base de donnée
 *\return int
 * Information supplémentaire
@@ -413,7 +419,7 @@ function countMOTD(){
 
 /**
 *\author Nicolas
-*\checker ?
+*\checker Florian
 *\brief renvoie le code HTML qui affiche le MOTD
 *\param \a $alea/
 *\return string
@@ -452,7 +458,7 @@ function faitJour($alea){
 
 /**
 *\author Nicolas
-*\checker ?
+*\checker Florian
 *\brief renvoie le code HTML qui affiche le MOTD
 *\return string
 * Information supplémentaire
@@ -505,7 +511,7 @@ function afficheMiniArticle($id){
 
 /**
 *\author Adrien
-*\checker ?
+*\checker Jérôme
 *\brief Fonction retourne l'id du dernier article
 *\return id article
 * Informations supplémentaires
@@ -656,7 +662,7 @@ function navigation($pageCourante, $dernierePage){
 
 /**
 *\author Valentin
-*\checker ?
+*\checker Adrien
 *\brief Renvoie l'id de l'article le plus vu du wiki
 *\param rien
 *\return id*/
@@ -831,5 +837,61 @@ function checklogin($mail,$password) {
 }
 
 
+/**
+*\author Florian
+*\checker Thomas
+*\Brief : Affiche un bouton qui permet d'ajouter un nouveau dossier.
+*\param : rien
+*\return : Une chaine html */
+function afficheBoutonNouveauDossier() {
+	return '<input type="submit" class="boutonNewDir" name="Nouveau Dossier" value="" >';
+}
 
+
+/**
+*\author Théo
+*\checker ?
+*\brief Ajoute et affiche les messages de la base de données
+*\return string*/
+function afficheMessageChat() {
+    global $p_base; //On récupère la variable $p_base
+        try {
+            if(!empty($_POST['message'])) { //La boucle s'execute si le contenu de message n'est pas vide
+                $requete= $p_base->prepare('INSERT INTO tchat (contenu, date, idpersonne) VALUES (:contenu, :date, :idpersonne)'); //On prépare la requête d'insertion pour insérer le contenu du message dans la BDD
+                $requete->execute(array(':contenu' => $_POST['message'], ':idpersonne'=> $_SESSION['id'], ':dateheure' => date('Y-m-d G:i:s'))); // on rentre les donnees dans un tableau
+                $requete->closeCursor(); //On libère le curseur
+                $p_requete = $bdd->query('SELECT pe.id, avatar, pseudo, contenu, date, idpersonne FROM personne pe, post po WHERE pe.id=po.idpersonne order by po.id desc limit 10'); //Requête qui selectionne les informations relatives au message
+                    while ($donnees = $p_requete->fetch(PDO::FETCH_ASSOC)) {
+                    $dateheure = $donnees['date'];
+                    $dateheure = substr($dateheure, -8); // On selectionne uniquement les 8 derniers caractères de la chaine (l'heure)
+                    $message = echo $donnees['avatar'].' '. $donnees['pseudo'].': '. $donnees['contenu']. '</br>'. $dateheure; //On affiche le message
+
+                    }
+            // On libère le pointeur
+                $p_requete->closeCursor();
+                }
+            }
+            catch (Exception $e)
+                {
+                die('Erreur : ' . $e->getMessage());
+                }
+    return $message;
+}
+
+
+/**
+*\author Nicolas
+*\checker ?
+*\brief vérifi si le fichier exsiste puis change $_SESSION['arborescence'] en le nom du repertoir mis en argument.
+*\return boolval
+*\param /a $pathRequest
+*/
+function setArborescence($pathRequest){
+    if (is_dir('./'.PATH.'/'.$pathRequest)){
+        $_SESSION['arborescence']='/share/'.$pathRequest;
+    }
+    else {
+        return false;
+    }
+}
 ?>
