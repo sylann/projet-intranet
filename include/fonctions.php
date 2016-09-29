@@ -905,4 +905,29 @@ function setArborescence($pathRequest){
         return false;
     }
 }
+
+
+/**
+*\author Alexandre et Charles 
+*\checker ?
+*\brief . Génère l'affichage d’un bouton de téléchargement de fichiers.
+*\return chaine html
+*\param rien
+*/
+function AfficheBoutonTelecharger(){
+		return '<input type=submit name="Telecharger" value="" />' // mettre une action 
+}
+
+
+/**
+*\author Alexandre et Charles 
+*\checker ?
+*\brief . Génère l'affichage d’un bouton de suppression de fichiers.
+*\return chaine html
+*\param rien
+*/
+function AfficheBoutonSupprimer(){
+		return '<input type=submit name="Supprimer" value="" />' // mettre une action 
+	
+}
 ?>
