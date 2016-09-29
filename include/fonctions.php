@@ -779,4 +779,36 @@ function ajouteArticle(){
 	}
 }
 
+
+/**
+*\author Thomas BERARD
+*\checker ?
+*\brief Permet de traiter une chaine (entrée en deuxième) de manière à conserver uniquement ce qui est après le premier paramètre.
+*\param premier paramètre: chaine après laquelle on coupe.  second paramètre: chaine à traiter.
+*\return chaine traitée */
+function keepAfter ($this, $inthat) {
+  if (!is_bool(strpos($inthat, $this)))
+  return substr($inthat, strpos($inthat,$this)+strlen($this));
+}
+
+
+/**
+*\author Thomas BERARD
+*\checker ?
+*\brief Renvoie l'arborescence absolu si true en entré sinon renvoie l'arborescence relative par rapport à l'endroit ou on éxecute la fonction.
+*\param $absolu=true ou $absolu=false
+*\return Arborescence(absolue ou relative) */
+function getArborescence($absolu=true) { //NE PAS OUBLIER D'AJOUTER LA CONSTANTE SUIVANTE DANS connexion.php : define('CHEMIN_SERVER', "/var/www/grepsi.fr/www/"); #on défini le chemin absolu du serveur web
+  if($absolu) {
+    return getcwd(); // On retourne l'arborescence complète avec cette fonction intégrée à PHP.
+  }
+
+  else {
+    $arborescenceAbsolue = getcwd(); // On récupère l'arborescence complète avec cette fonction intégrée à PHP.
+    $_SESSION['arborescence'] = keepAfter(CHEMIN_SERVER, $arborescenceAbsolue) . "/"; // On coupe la chaine pour ne garder que la partie relative en utilisant la fonction : keepAfter()
+    return $_SESSION['arborescence']; // On retourne l'arborescence relative.
+  }
+}
+
+
 ?>
