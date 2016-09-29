@@ -782,7 +782,7 @@ function ajouteArticle(){
 
 /**
 *\author Thomas BERARD
-*\checker ?
+*\checker Théo
 *\brief Permet de traiter une chaine (entrée en deuxième) de manière à conserver uniquement ce qui est après le premier paramètre.
 *\param premier paramètre: chaine après laquelle on coupe.  second paramètre: chaine à traiter.
 *\return chaine traitée */
@@ -794,7 +794,7 @@ function keepAfter ($this, $inthat) {
 
 /**
 *\author Thomas BERARD
-*\checker ?
+*\checker Théo
 *\brief Renvoie l'arborescence absolu si true en entré sinon renvoie l'arborescence relative par rapport à l'endroit ou on éxecute la fonction.
 *\param $absolu=true ou $absolu=false
 *\return Arborescence(absolue ou relative) */
@@ -809,6 +809,27 @@ function getArborescence($absolu=true) { //NE PAS OUBLIER D'AJOUTER LA CONSTANTE
     return $_SESSION['arborescence']; // On retourne l'arborescence relative.
   }
 }
+
+
+/**
+*\author Guillaume
+*\checker Thomas BERARD
+*\brief Permet de vérifier si le mail et le password existe dans la BDD.
+*\param 2 chaines de caractères
+*\return id de la personne traitée */
+function checklogin($mail,$password) {
+	global $p_base;
+	$sth = $p_base->prepare('select id from personne where mail=:mail and password=:password');
+	$sth->execute(array(':mail' =>$mail, ':password' =>sha1($password)));
+	$resultat=$sth->fetch();
+		if ($resultat==false){
+			return false;
+		}
+		else{
+			return $resultat['id'];
+		}
+}
+
 
 
 ?>
