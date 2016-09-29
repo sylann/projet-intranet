@@ -737,7 +737,7 @@ function afficheGroupes(){
 *\return string*/
 function afficheEcritureArticle(){
 	if(isset($_POST['submit'])) {
-		ajouteArticles();
+		ajouteArticle();
 	}
 	return '<form method="post">
 			<input type="text" name="titre" placeholder="Titre">
@@ -753,6 +753,30 @@ function afficheChat() {
 		<input type="text" name="message" autofocus="autofocus" placeholder="Votre message">
 		<input type="submit" name="submit" value="Poster" />
 	</form>';
+}
+
+
+/**
+*\author Valentin
+*\checker ?
+*\Brief : On récupère toutes les données entrées par l'utilisateur dans le formulaire de création de wiki, puis grâce à une requête SQL update, on rentre ces informations dans la bdd.
+*\param : rien -- post : Données rentrées par l'utilisateur dans le formulaire de l'article (label et contenu)
+*\return : Rien*/
+function ajouteArticle(){
+	global $p_base;			//pour avoir accès à la la variable $p_base
+	try{
+		$p_requete = $p_base->prepare("INSERT INTO wiki(label, contenu, datecrea, lastmod, idpersonne) VALUES (:label, :contenu, :date, :lastmod, :idpersonne)");		//requête SQL insérant l'article
+		$p_requete->execute(array('label'=> $_POST['label'],
+								  'contenu'=> $_POST['contenu'],
+								  'date'=> date('d/m/Y'),
+							  	  'lastmod'=> date('d/m/Y'),
+							  	  'idpersonne'=> $_SESSION['id']));
+		$p_requete->closeCursor(); 		// Termine le traitement de la requête
+	}
+	catch(Exception $e){
+	// En cas d'erreur précédemment, on affiche un message et on arrête tout
+		die('Erreur : '.$e->getMessage());
+	}
 }
 
 ?>
