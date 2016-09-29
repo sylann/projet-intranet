@@ -10,8 +10,8 @@
 	define('DB_USER', "le_nom_de_votre_utilisateur"); #on défini l'utilisateur
 	define('DB_PASSWORD', "votre_mot_de_passe"); #on défini le mot de passe
 
-	// On définit d'autre constantes en rapport avec le site :
-	define('PATH', "share"); #on défini le repertoir de partage de fichier
+	// On défini d'autres constantes en rapport avec le site/serveur :
+	define('PATH', "share"); #on défini le répertoire de partage de fichiers
 	define('CHEMIN_SERVER', "/var/www/grepsi.fr/www/"); #on défini le chemin absolu du serveur web
 
 	$pdo_options[PDO::ATTR_ERRMODE] = PDO::ERRMODE_EXCEPTION;
