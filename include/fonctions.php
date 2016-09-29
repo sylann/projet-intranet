@@ -739,7 +739,7 @@ function afficheGroupes(){
 
 /**
 *\author Théo
-*\checker ?
+*\checker Adrien
 *\brief Affiche un écran d'écriture d'articles
 *\return string*/
 function afficheEcritureArticle(){
@@ -747,8 +747,8 @@ function afficheEcritureArticle(){
 		ajouteArticle();
 	}
 	return '<form method="post">
-			<input type="text" name="titre" placeholder="Titre">
-			<textarea name="message" autofocus="autofocus" class="zonetext"></textarea>
+			<input type="text" name="label" placeholder="Titre">
+			<textarea name="contenu" autofocus="autofocus" class="zonetext"></textarea>
 			<input type="submit" name="submit" value="Sauvegarder">
 		</form>
 		';
@@ -765,7 +765,7 @@ function afficheChat() {
 
 /**
 *\author Valentin
-*\checker ?
+*\checker Adrien
 *\Brief : On récupère toutes les données entrées par l'utilisateur dans le formulaire de création de wiki, puis grâce à une requête SQL update, on rentre ces informations dans la bdd.
 *\param : rien -- post : Données rentrées par l'utilisateur dans le formulaire de l'article (label et contenu)
 *\return : Rien*/
@@ -908,26 +908,26 @@ function setArborescence($pathRequest){
 
 
 /**
-*\author Alexandre et Charles 
+*\author Alexandre et Charles
 *\checker ?
 *\brief . Génère l'affichage d’un bouton de téléchargement de fichiers.
 *\return chaine html
 *\param rien
 */
 function AfficheBoutonTelecharger(){
-		return '<input type=submit name="Telecharger" value="" />' // mettre une action 
+		return '<input type=submit name="Telecharger" value="" />' // mettre une action
 }
 
 
 /**
-*\author Alexandre et Charles 
+*\author Alexandre et Charles
 *\checker ?
 *\brief . Génère l'affichage d’un bouton de suppression de fichiers.
 *\return chaine html
 *\param rien
 */
 function AfficheBoutonSupprimer(){
-		return '<input type=submit name="Supprimer" value="" />' // mettre une action 
-	
+		return '<input type=submit name="Supprimer" value="" />' // mettre une action
+
 }
 ?>
