@@ -700,7 +700,7 @@ function afficheArticle($idArticle){
 
 /**
 *\author Valentin
-*\checker ?
+*\checker Thomas BERARD
 *\brief Renvoie une chaine html qui permet d'afficher les groupes avec un lien vers leur trombinoscope
 *\param rien
 *\return chaine html*/
