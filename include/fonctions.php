@@ -292,6 +292,7 @@ function afficheTrombinoscope($idGroupe){
 	return $chaineTrombi;
 }
 
+
 /**
 *\author Adrien
 *\checker ?
@@ -845,6 +846,16 @@ function checklogin($mail,$password) {
 *\return : Une chaine html */
 function afficheBoutonNouveauDossier() {
 	return '<input type="submit" class="boutonNewDir" name="Nouveau Dossier" value="" >';
+
+
+/**
+*\author Valentin
+*\checker ?
+*\Brief : On récupère toutes les données entrées par l'utilisateur dans le formulaire de création de wiki, puis grâce à une requête SQL update, on rentre ces informations dans la bdd.
+*\param : rien
+*\return : chaine html*/
+function afficheFormRenommer(){
+	return '<form method="post"><input type="text" name="nomFichier" placeholder="Nom fichier"><input type="submit" name="submitNomFichier"></form>';
 }
 
 
