@@ -894,13 +894,13 @@ function setArborescence($pathRequest){
 
 /**
 *\author Alexandre et Charles
-*\checker Nicolas
+*\checker Théo
 *\brief . Génère l'affichage d’un bouton de téléchargement de fichiers.
 *\return chaine html
 *\param rien
 */
 function AfficheBoutonTelecharger(){
-		return '<input type=submit name="Telecharger" value="" />'; // mettre une action
+        return '<input type=submit name="Telecharger" value="Telecharger" />'; // mettre une action
 }
 
 
@@ -912,8 +912,7 @@ function AfficheBoutonTelecharger(){
 *\param rien
 */
 function AfficheBoutonSupprimer(){
-		return '<input type=submit name="Supprimer" value="Supprimer" />'; // mettre une action
-
+        return '<input type=submit name="Supprimer" value="Supprimer" />'; // mettre une action
 }
 
 
