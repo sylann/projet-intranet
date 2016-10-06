@@ -41,7 +41,7 @@ function hautPage () {
 	<meta name="description" content="GREPSI - EPSI Grenoble">
 	<meta name="keywords" content="EPSI, Grenoble">
 	<meta name="language" content="fr">
-	<meta name="author" content="Thomas BERARD, Nicolas BOUYSSOUNOUSE, Adrien CECCALDI, Nathan DESCOMBES, Jérôme FABBIAN, Florian GOJON, Théo GUIBOUD-RIBAUD, Guillaume SAYEN, Valentin SOVIGNET, Romain VINCENT">
+	<meta name="author" content="Thomas BERARD, Nicolas BOUYSSOUNOUSE, Adrien CECCALDI, Nathan DESCOMBES, Alexandre DEMONTOUX, Charles DOUANGDARA, Jérôme FABBIAN, Florian GOJON, Théo GUIBOUD-RIBAUD, Guillaume SAYEN, Valentin SOVIGNET, Romain VINCENT">
 	<link rel="stylesheet" type="text/css" href="style/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="style/grepsi.css">
 	</head>
@@ -300,7 +300,7 @@ function afficheTrombinoscope($idGroupe){
 
 /**
 *\author Adrien
-*\checker ?
+*\checker Thomas BERARD
 *\brief Fonction affichage d'un post avec partie user, mise en page & toolbar
 *\param \a $idPost/
 *\return string
@@ -313,39 +313,40 @@ function afficheTrombinoscope($idGroupe){
 * 'idPost' Affichage du post et de la signature du user
 */
 function affichePost ($idPost) {
-	try {
-		$p_requete = $p_base->query('Select date, contenu, idpersonne, signature, post.id, avatar, pseudo from post, personne, devise where post.id = '.$idPost.' and idpersonne = personne.id');
-		$donnees = $requete->fetchall();
-	}
-	catch(Exception $e){
-	die ('Erreur : '.$e->getMessage());
-	}
-	return	'<table class="posttable" cellpadding="4" cellspacing="0" width="100%">
-				<tbody>
-					<td class="user" rowspan="1" valign="top" width="150">
-						<center>
-							<div>'.$donnees['pseudo'].'
-							</br>
-							<div>'.$donnees['devise'].'
- 							<img src="'.$donnees['avatar'].'" title="'.$donnees['nom'].','. $donnees['prenom'].'">
- 						</center>
-					</td>
-					<td class="post" valign="top">
-						<div class="toolbar">
-							Date du message : '.$donnees['date'].'
-						</div>
-						<div class="'.$idPost.'">
-							<p>'.$donnees['contenu'].'</p>
-							</br>
-						</div>
-						<div class="signature">
-							--------------------
-							</br>'
-							.$donnees['signature'].'
-						</div>
-					</td>
-				</tbody>
-			</table>';
+    global $p_base;         //pour avoir accès à la la variable $p_base
+    try {
+        $p_requete = $p_base->query('Select date, contenu, idpersonne, nom, prenom, signature, post.id, avatar, pseudo, devise from post, personne where post.id = '.$idPost.' and idpersonne = personne.id');
+        $donnees = $p_requete->fetch();
+    }
+    catch(Exception $e){
+    die ('Erreur : '.$e->getMessage());
+    }
+    return  '<table class="posttable" cellpadding="4" cellspacing="0" width="100%">
+                <tbody>
+                    <td class="user" rowspan="1" valign="top" width="150">
+                        <center>
+                            <div>'.$donnees['pseudo'].'
+                            </br>
+                            <div>'.$donnees['devise'].'
+                            <img src="'.$donnees['avatar'].'" title="'.$donnees['nom'].','. $donnees['prenom'].'">
+                        </center>
+                    </td>
+                    <td class="post" valign="top">
+                        <div class="toolbar">
+                            Date du message : '.$donnees['date'].'
+                        </div>
+                        <div class="'.$idPost.'">
+                            <p>'.$donnees['contenu'].'</p>
+                            </br>
+                        </div>
+                        <div class="signature">
+                            --------------------
+                            </br>'
+                            .$donnees['signature'].'
+                        </div>
+                    </td>
+                </tbody>
+            </table>';
 }
 
 
@@ -581,7 +582,12 @@ function setupNavigationListeArticle(){
 	global $p_base;
 
 	if (isset($_GET['page'])) {			//si 'page' vaut quelque chose (--> si on a page=quelque chose)
-		$pageCourante = $_GET['page'];	//pageCourante prend la valeur de page="?"
+		if(!empty($_GET['page'])){
+			$pageCourante = $_GET['page'];	//pageCourante prend la valeur de page="?"
+		}
+		else{
+			$pageCourante = 1;
+		}
 	}
 	else {
 		$pageCourante = 1;				//sinon la variable prend la valeur 1 (page 1)
@@ -672,7 +678,7 @@ function getMostViewedArticle(){
 
 /**
 *\author Valentin
-*\checker ?
+*\checker Thomas BERARD
 *\brief Renvoie une chaine html qui permet d'afficher l'article
 *\param id de l'article
 *\return chaine html*/
@@ -839,17 +845,6 @@ function afficheBoutonNouveauDossier() {
 
 
 /**
-*\author Valentin
-*\checker ?
-*\Brief : On récupère toutes les données entrées par l'utilisateur dans le formulaire de création de wiki, puis grâce à une requête SQL update, on rentre ces informations dans la bdd.
-*\param : rien
-*\return : chaine html*/
-function afficheFormRenommer(){
-	return '<form method="post"><input type="text" name="nomFichier" placeholder="Nom fichier"><input type="submit" name="submitNomFichier"></form>';
-}
-
-
-/**
 *\author Théo
 *\checker ?
 *\brief Ajoute et affiche les messages de la base de données
@@ -899,7 +894,7 @@ function setArborescence($pathRequest){
 
 /**
 *\author Alexandre et Charles
-*\checker ?
+*\checker Nicolas
 *\brief . Génère l'affichage d’un bouton de téléchargement de fichiers.
 *\return chaine html
 *\param rien
@@ -911,14 +906,50 @@ function AfficheBoutonTelecharger(){
 
 /**
 *\author Alexandre et Charles
-*\checker ?
+*\checker Théo
 *\brief . Génère l'affichage d’un bouton de suppression de fichiers.
 *\return chaine html
 *\param rien
 */
 function AfficheBoutonSupprimer(){
-		return '<input type=submit name="Supprimer" value="" />'; // mettre une action
+		return '<input type=submit name="Supprimer" value="Supprimer" />'; // mettre une action
 
+}
+
+
+/**
+*\author Valentin
+*\checker ?
+*\brief Génère l'affichage d’un form pour renommer un fichier.
+*\return chaine html
+*\param rien
+*/
+function afficheFormRenommer(){
+	if(isset($_GET['idFichier'])){			//si il y a bien un param idFichier dans l'url
+		if(!empty($_GET['idFichier'])){
+			global $p_base;			//pour avoir accès à la la variable $p_base
+			try{
+				$p_requete = $p_base->prepare("SELECT label as nomFichier FROM partage WHERE id = :id");		//requête SQL récupérant le nom du fichier
+				$p_requete->execute(array('id'=> $_GET['idFichier']));
+				$donnees = $p_requete->fetch();
+				$nomFichier = $donnees['nomFichier'];
+				$p_requete->closeCursor(); 		// Termine le traitement de la requête
+			}
+			catch(Exception $e){
+			// En cas d'erreur précédemment, on affiche un message et on arrête tout
+				die('Erreur : '.$e->getMessage());
+			}
+
+
+			return '<form method="post"><input type="text" placeholder="Nom du fichier" value="'.$nomFichier.'" /><input type="submit" name="submitNomFichier"></form>';
+		}
+		else{
+			header("location: index.php");
+		}
+	}
+	else{
+		header("location: index.php");		//dans le cas où on a entré l'url à la main, on redirige vers l'index
+	}
 }
 
 ?>
