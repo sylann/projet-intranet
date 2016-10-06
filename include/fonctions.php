@@ -72,12 +72,12 @@ function basPage () {
 function afficheMenu () {
 	$html = '<nav id="cssmenu">
 		<ul>
-			<li><a href="home">Accueil</a></li>
-			<li><a href="page1">page1</a></li>
-			<li><a href="page2">page2</a></li>
-			<li><a href="page3">page3</a></li>
-			<li><a href="page4">page4</a></li>
-			<li><a href="page5">page5</a></li>';
+			<li><a href="accueil.php">Accueil</a></li>
+			<li><a href="agenda.php">Agenda</a></li>
+			<li><a href="partage.php">Partage</a></li>
+			<li><a href="wiki.php">Wiki</a></li>
+			<li><a href="trombinoscope.php">Trombinoscope</a></li>
+			<li><a href="forum.php">Forum</a></li>';
 
 	// Affiche le outon de connexion si non connecté,
 	// le prénom utilisateur et le bouton de déconnexion si connecté

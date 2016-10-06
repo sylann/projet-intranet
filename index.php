@@ -1,9 +1,10 @@
 <?php
-include('include/connexion.php');
-include('include/fonctions.php');
+session_start();
+require_once('include/connexion.php');
+require_once('include/fonctions.php');
 
-echo hautPage();  				        // Apelle la fonction HautePage
-echo afficheMenu();      				// Apelle la fonction Menu
+echo hautPage(); // head html meta, scrits, styles ...
+echo afficheMenu(); // fonction ui affiche la barre de navigation
 
 
 
