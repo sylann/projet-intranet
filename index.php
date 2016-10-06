@@ -6,7 +6,7 @@ require_once('include/fonctions.php');
 echo hautPage(); // head html meta, scrits, styles ...
 echo afficheMenu(); // fonction ui affiche la barre de navigation
 
-echo "666 Bienvenue sur le site de l'enfer 999"
+echo "666 Bienvenue sur le site de l'enfer 999";
 
 // Regarde si l'utilisateur est connecté
 if (isConnected()) {

@@ -845,13 +845,12 @@ function afficheBoutonNouveauDossier() {
 
 /**
 *\author Florian
-*\checker ?
+*\checker Romain
 *\Brief : Fonction qui permet d'ajouter un nouveau dossier
 *\param : le nom du repertoire a creer
 *\return : true or false */
 function nouveauDossier($repertoire){
-	bool mkdir ( string $repertoire [, int $mode = 0777 [, bool $recursive = false [, resource $context ]]] )
-	return bool;
+	return mkdir ( $repertoire, 775);
 }
 
 /**
