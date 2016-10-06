@@ -1,12 +1,11 @@
 <?php
 session_start();
 require_once('include/connexion.php');
-require_once('include/fonctions.php');
+require_once('include/fct_common.php');
+require_once('include/fct_accueil.php');
 
-echo hautPage(); // head html meta, scrits, styles ...
+include("haut_page.html"); // head html meta, styles ...
 echo afficheMenu(); // fonction ui affiche la barre de navigation
-
-echo "666 Bienvenue sur le site de l'enfer 999";
 
 // Regarde si l'utilisateur est connecté
 if (isConnected()) {
@@ -18,7 +17,21 @@ if (isConnected()) {
 	}
 }
 
+?>
 
-echo afficheFooter();					  // Appelle la fonction Footer
-echo BasPage();
+<!-- Ajouter votre contenu ici
+ doit appeler la fonction correspondante
+
+ pensez à tout ce qu'il faudrait ajouter et qui n'est peut-être pas encore prévu
+
+ faites des commentaires dans trello !! :-)
+-->
+
+<?php
+
+echo "666 Bienvenue sur le site de l'enfer 999";
+
+echo afficheFooter();     // Appelle la fonction Footer
+include("bas_page.html"); // scripts, balise fermantes
+
 ?>
