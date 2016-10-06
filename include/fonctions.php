@@ -535,23 +535,6 @@ function getDernierArticle() {
 	return $tableDernierArticle;
 }
 
-/**
-*\author Nicolas
-*\checker ?
-*\brief change $_SESSION['arborescence'] en le nom du repertoir mis en argument.
-*\return boolval
-*\param /a $pathRequest
-*/
-function setArborescence($pathRequest){
-
-    if (chdir($pathRequest)) {
-        $_SESSION['arborescence']=getcwd();
-    }
-    else {
-        return false;
-    }
-}
-
 
 /**
 *\author Valentin
@@ -794,8 +777,9 @@ function ajouteArticle(){
 *\param premier paramètre: chaine après laquelle on coupe.  second paramètre: chaine à traiter.
 *\return chaine traitée */
 function keepAfter ($this, $inthat) {
-  if (!is_bool(strpos($inthat, $this)))
-  return substr($inthat, strpos($inthat,$this)+strlen($this));
+	if (!is_bool(strpos($inthat, $this))){
+  		return substr($inthat, strpos($inthat,$this)+strlen($this));
+	}
 }
 
 
@@ -846,6 +830,7 @@ function checklogin($mail,$password) {
 *\return : Une chaine html */
 function afficheBoutonNouveauDossier() {
 	return '<input type="submit" class="boutonNewDir" name="Nouveau Dossier" value="" >';
+}
 
 
 /**
@@ -875,7 +860,7 @@ function afficheMessageChat() {
                     while ($donnees = $p_requete->fetch(PDO::FETCH_ASSOC)) {
                     $dateheure = $donnees['date'];
                     $dateheure = substr($dateheure, -8); // On selectionne uniquement les 8 derniers caractères de la chaine (l'heure)
-                    $message = echo $donnees['avatar'].' '. $donnees['pseudo'].': '. $donnees['contenu']. '</br>'. $dateheure; //On affiche le message
+                    $message = $donnees['avatar'].' '. $donnees['pseudo'].': '. $donnees['contenu']. '</br>'. $dateheure; //On affiche le message
 
                     }
             // On libère le pointeur
@@ -915,7 +900,7 @@ function setArborescence($pathRequest){
 *\param rien
 */
 function AfficheBoutonTelecharger(){
-		return '<input type=submit name="Telecharger" value="" />' // mettre une action
+		return '<input type=submit name="Telecharger" value="" />'; // mettre une action
 }
 
 
@@ -927,7 +912,8 @@ function AfficheBoutonTelecharger(){
 *\param rien
 */
 function AfficheBoutonSupprimer(){
-		return '<input type=submit name="Supprimer" value="" />' // mettre une action
+		return '<input type=submit name="Supprimer" value="" />'; // mettre une action
 
 }
+
 ?>
