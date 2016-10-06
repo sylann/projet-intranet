@@ -20,6 +20,15 @@ echo afficheMenu(); // fonction qui affiche la barre de navigation
   faites des commentaires dans trello !! :-)
  -->
 
+
+<!-- ajouter le menu d'upload avec le code suivant :
+
+  <form action="upload.php" class="dropzone" id="jacob" method="post" enctype="multipart/form-data">
+    <div class="fallback">
+      <input name="file" type="file" id="file" />
+    </div>
+  </form>
+ -->
 <?php
 
 echo afficheFooter();

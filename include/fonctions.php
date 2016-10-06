@@ -904,7 +904,7 @@ function setArborescence($pathRequest){
 
 /**
 *\author Alexandre et Charles
-*\checker Théo
+*\checker Nicolas
 *\brief . Génère l'affichage d’un bouton de téléchargement de fichiers.
 *\return chaine html
 *\param rien
