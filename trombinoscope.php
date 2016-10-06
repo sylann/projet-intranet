@@ -22,22 +22,3 @@ else {                           // Sinon
 echo afficheFooter();
 echo BasPage(); // balises body et html fermantes
 ?>
-
-
-<?php
-
-/*
-* \Autheur: Jérôme.
-* \Vérificateur: Romain VINCENT.
-* \Brief: Retourne la page d'affichage du trombinoscope en étant connecté.
-* \print: Ecran complet de trombinoscope.
-*/
-
-include('include/fonctions.php');// Appelle la liste des fonctions
-
-
-
-echo afficheFooter ();           // Appelle la fonction Footer
-echo BasPage ();                 // Appelle la fonction Baspage
-
-?>
