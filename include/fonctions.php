@@ -297,7 +297,7 @@ function afficheTrombinoscope($idGroupe){
 
 /**
 *\author Adrien
-*\checker ?
+*\checker Thomas BERARD
 *\brief Fonction affichage d'un post avec partie user, mise en page & toolbar
 *\param \a $idPost/
 *\return string
@@ -669,7 +669,7 @@ function getMostViewedArticle(){
 
 /**
 *\author Valentin
-*\checker ?
+*\checker Thomas BERARD
 *\brief Renvoie une chaine html qui permet d'afficher l'article
 *\param id de l'article
 *\return chaine html*/
