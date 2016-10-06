@@ -70,22 +70,25 @@ function basPage () {
 *\return string
 */
 function afficheMenu () {
-	return '<nav id="cssmenu">
+	$html = '<nav id="cssmenu">
 		<ul>
 			<li><a href="home">Accueil</a></li>
 			<li><a href="page1">page1</a></li>
 			<li><a href="page2">page2</a></li>
 			<li><a href="page3">page3</a></li>
 			<li><a href="page4">page4</a></li>
-			<li><a href="page5">page5</a></li>
-		</ul>
-		<form id="connect" class="" action="form_connexion.php" method="post">
-      <input type="text" id="identifiant" name="identifiant" placeholder="Entrez votre identifiant"/>
-      <input type="password" id="password" name="password" placeholder="Entrez votre password"/>
-      <input type="submit" value="CONNEXION"/>
-    </form>
-	</nav>
-	';
+			<li><a href="page5">page5</a></li>';
+
+	// Affiche le outon de connexion si non connecté,
+	// le prénom utilisateur et le bouton de déconnexion si connecté
+	$html .= (!isConnected()) ?
+		'<li><a href="form_connexion.php">Se connecter</a></li>' :
+		'<li><span>'.$_SESSION["prenom"].'</span><form id="connect" class="" action="deconnexion.php" method="post"> <input type="submit" value="Se deconnecter"/> </form></li>';
+
+	$html .= '</ul>
+	</nav>';
+
+	return $html;
 }
 
 
