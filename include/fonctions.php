@@ -41,7 +41,7 @@ function hautPage () {
 	<meta name="description" content="GREPSI - EPSI Grenoble">
 	<meta name="keywords" content="EPSI, Grenoble">
 	<meta name="language" content="fr">
-	<meta name="author" content="Thomas BERARD, Nicolas BOUYSSOUNOUSE, Adrien CECCALDI, Nathan DESCOMBES, Alexandre DEMONTOUX, Charles DOUANGDARA, Jérôme FABBIAN, Florian GOJON, Théo GUIBOUD-RIBAUD, Guillaume SAYEN, Valentin SOVIGNET, Romain VINCENT">
+	<meta name="author" content="Thomas BERARD, Nicolas BOUYSSOUNOUSE, Adrien CECCALDI, Nathan DESCOMBES, Alexandre DEMONTOUX, Charles DOUANGDARA, Jérôme FABBIAN, Florian GOJON, Théo GUIBOUD-RIBAUD, Hugues LEVASSEUR, Guillaume SAYEN, Valentin SOVIGNET, Romain VINCENT">
 	<link rel="stylesheet" type="text/css" href="style/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="style/grepsi.css">
 	</head>
@@ -938,7 +938,7 @@ function afficheFormRenommer(){
 		if(!empty($_GET['idFichier'])){
 			global $p_base;			//pour avoir accès à la la variable $p_base
 			try{
-				$p_requete = $p_base->prepare("SELECT label as nomFichier FROM partage WHERE id = :id");		//requête SQL récupérant le nom du fichier
+				$p_requete = $p_base->prepare("SELECT id, label as nomFichier FROM partage WHERE id = :id");		//requête SQL récupérant le nom du fichier
 				$p_requete->execute(array('id'=> $_GET['idFichier']));
 				$donnees = $p_requete->fetch();
 				$nomFichier = $donnees['nomFichier'];
@@ -950,7 +950,8 @@ function afficheFormRenommer(){
 			}
 
 
-			return '<form method="post"><input type="text" placeholder="Nom du fichier" value="'.$nomFichier.'" /><input type="submit" name="submitNomFichier"></form>';
+			return '<form method="post"><input type="text" placeholder="Nom du fichier" name="nomFichier" value="'.$nomFichier.'" /> <input type="hidden" value="'.$_GET['idFichier'].'" name="idFichier" /> <input type="submit" name="submitNomFichier"></form>';		//on return le form
+			//notez bien le input type="hidden", il permet de passer l'id du fichier dans le form pour la fonction renommerFichier()
 		}
 		else{
 			header("location: index.php");
@@ -958,6 +959,50 @@ function afficheFormRenommer(){
 	}
 	else{
 		header("location: index.php");		//dans le cas où on a entré l'url à la main, on redirige vers l'index
+	}
+}
+
+
+/**
+*\author Valentin
+*\checker ?
+*\brief renomme le fichier selon un input text
+*\return rien
+*\param id du fichier
+*/
+function renommerFichier($idFichier){
+	global $p_base;			//pour avoir accès à la la variable $p_base
+
+	if(!empty($_POST['nomFichier'])){		//si l'utilisateur a bien saisi un nom de fichier
+		if(isset($_POST['idFichier'])){		//au cas où un malin enlève le input hidden
+			if(!empty($_POST['idFichier'])){	//on enlève la value de ce dernier
+				try{
+					$p_requete = $p_base->prepare("SELECT chemin, label FROM partage WHERE id = :id");		//requête SQL nous donnant le chemin du fichier
+					$p_requete->execute(array('id'=> $idFichier));
+					$donnees = $p_requete->fetch();
+					$chemin = $donnees['chemin'];
+					$nomFichier = $donnees['label'];
+					$p_requete->closeCursor(); 		// Termine le traitement de la requête
+
+					if(rename($chemin.$nomFichier,$chemin.$_POST['nomFichier'])){		//si le rename se passe bien
+						$p_requete = $p_base->prepare("UPDATE partage SET label = :nomFichier");		//requête SQL mettant à jour le nom du fichier
+						$p_requete->execute(array('nomFichier'=> $_POST['nomFichier']));
+						$p_requete->closeCursor(); 		// Termine le traitement de la requête
+
+						return '<div class="resultatRename"><p>Succès</p></div>';
+					}
+					else{	//si il y a une erreur
+						return '<div class="resultatRename"><p>Erreur</p></div>';
+					}
+
+
+				}
+				catch(Exception $e){
+				// En cas d'erreur précédemment, on affiche un message et on arrête tout
+					die('Erreur : '.$e->getMessage());
+				}
+			}
+		}
 	}
 }
 
