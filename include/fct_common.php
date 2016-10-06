@@ -121,7 +121,7 @@ function checklogin($mail,$password) {
 *\return : une chaine html */
 
 function afficheBoutonRetour(){
-	return '<input type="submit" name="Retour" value="" </input>'
+	return '<input type="submit" name="Retour" value="" </input>';
 }
 
 /**

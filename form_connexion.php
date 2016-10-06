@@ -3,7 +3,7 @@
 require_once('include/connexion.php');
 require_once('include/fct_common.php');
 
-include("haut_page.html"); // head html meta, styles ...
+include("include/haut_page.html"); // head html meta, styles ...
 echo afficheMenu(); // fonction qui affiche la barre de navigation
 
  ?>
@@ -20,5 +20,5 @@ echo afficheMenu(); // fonction qui affiche la barre de navigation
 <?php
 
 echo afficheFooter();
-include("bas_page.html"); // scripts, balise fermantes
+include("include/bas_page.html"); // scripts, balise fermantes
 ?>

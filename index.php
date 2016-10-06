@@ -4,7 +4,7 @@ require_once('include/connexion.php');
 require_once('include/fct_common.php');
 require_once('include/fct_accueil.php');
 
-include("haut_page.html"); // head html meta, styles ...
+include("include/haut_page.html"); // head html meta, styles ...
 echo afficheMenu(); // fonction ui affiche la barre de navigation
 
 // Regarde si l'utilisateur est connecté
@@ -32,6 +32,6 @@ if (isConnected()) {
 echo "666 Bienvenue sur le site de l'enfer 999";
 
 echo afficheFooter();     // Appelle la fonction Footer
-include("bas_page.html"); // scripts, balise fermantes
+include("include/bas_page.html"); // scripts, balise fermantes
 
 ?>

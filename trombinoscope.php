@@ -8,7 +8,7 @@ if (!isConnected()) {            // Regarde si l'utilisateur est connecté
  die('Page inaccessible');      // Si il ne l'est pas, ne charge pas la page
 }
 
-include("haut_page.html"); // head html meta, styles ...
+include("include/haut_page.html"); // head html meta, styles ...
 echo afficheMenu(); // fonction qui affiche la barre de navigation
 
 echo afficheChat ();             // Si connecté, affiche le chat grâce à sa fonction
@@ -21,5 +21,5 @@ else {                           // Sinon
 }
 
 echo afficheFooter();
-include("bas_page.html"); // scripts, balise fermantes
+include("include/bas_page.html"); // scripts, balise fermantes
 ?>
