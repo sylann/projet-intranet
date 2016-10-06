@@ -78,10 +78,12 @@ function afficheMenu () {
 			<li><a href="page3">page3</a></li>
 			<li><a href="page4">page4</a></li>
 			<li><a href="page5">page5</a></li>
-			<li><input style="margin-top: 5px; margin-left: 15px; width: 150px; text-align: center" type="text" id="identifiant" name="identifiant" placeholder="Entrez votre identifiant"/></li>
-			<li><input style="margin-top: 5px; margin-left: 15px; width: 150px; text-align: center" type="password" id="password" name="password" placeholder="Entrez votre password"/></li>
-			<li><button type="submit">CONNEXION</button></li>
 		</ul>
+		<form id="connect" class="" action="form_connexion.php" method="post">
+      <input type="text" id="identifiant" name="identifiant" placeholder="Entrez votre identifiant"/>
+      <input type="password" id="password" name="password" placeholder="Entrez votre password"/>
+      <input type="submit" value="CONNEXION"/>
+    </form>
 	</nav>
 	';
 }
