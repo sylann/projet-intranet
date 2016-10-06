@@ -72,12 +72,12 @@ function basPage () {
 function afficheMenu () {
 	return '<nav id="cssmenu">
 		<ul>
-			<li><a href="#">Accueil</a></li>
-			<li><a href="#">page1</a></li>
-			<li><a href="#">page2</a></li>
-			<li><a href="#">page3</a></li>
-			<li><a href="#">page4</a></li>
-			<li><a href="#">page5</a></li>
+			<li><a href="home">Accueil</a></li>
+			<li><a href="page1">page1</a></li>
+			<li><a href="page2">page2</a></li>
+			<li><a href="page3">page3</a></li>
+			<li><a href="page4">page4</a></li>
+			<li><a href="page5">page5</a></li>
 			<li><input style="margin-top: 5px; margin-left: 15px; width: 150px; text-align: center" type="text" id="identifiant" name="identifiant" placeholder="Entrez votre identifiant"/></li>
 			<li><input style="margin-top: 5px; margin-left: 15px; width: 150px; text-align: center" type="password" id="password" name="password" placeholder="Entrez votre password"/></li>
 			<li><button type="submit">CONNEXION</button></li>
