@@ -1,11 +1,10 @@
 <?php
 
-
 require_once('include/connexion.php');
 require_once('include/fonctions.php');
 
 echo hautPage(); // head html meta, scrits, styles ...
-echo afficheMenu(); // fonction ui affiche la barre de navigation
+echo afficheMenu(); // fonction qui affiche la barre de navigation
 
  ?>
 <section>
@@ -20,6 +19,6 @@ echo afficheMenu(); // fonction ui affiche la barre de navigation
 </section>
 <?php
 
-echo afficheFooter();					  // Appelle la fonction Footer
-echo BasPage();
+echo afficheFooter();
+echo BasPage(); // balises body et html fermantes
 ?>

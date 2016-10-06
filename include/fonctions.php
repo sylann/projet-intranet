@@ -703,8 +703,8 @@ function afficheArticle($idArticle){
 *\author Romain
 *\checker ?
 *\brief Renvoie une chaine html qui permet d'afficher les groupes avec un lien vers leur trombinoscope
-*\param rien
-*\return chaine html*/
+*\return chaine html
+*/
 function afficheGroupes(){
 	global $p_base;			//pour avoir accès à la la variable $p_base
 	$groupes = '<div class="container-all-groups">';
